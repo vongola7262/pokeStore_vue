@@ -1,4 +1,4 @@
-# poke-store
+# js-shop
 
 ## Project setup
 ```
