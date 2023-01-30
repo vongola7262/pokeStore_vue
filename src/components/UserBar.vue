@@ -7,7 +7,7 @@
         </router-link>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <router-link :to="{ name: 'typeList' }" class="nav-link">
                 <p>商品</p>
               </router-link>
@@ -21,6 +21,11 @@
               <router-link :to="{ name: 'cart' }" class="nav-link">
                 <p>購物車</p>
               </router-link>
+            </li> -->
+            <li v-for="(item, index) in pageList" :key="index">
+              <a href="#" class="nav-link" @click.prevent="goNext(item.link)">
+                <p>{{ item.name }}</p>
+              </a>
             </li>
           </ul>
         </div>
@@ -36,7 +41,21 @@ export default {
   data () {
     return {
       isTop: false,
-      backTop: false
+      backTop: false,
+      pageList: [
+        {
+          name: '商品',
+          link: '/typeList/all'
+        },
+        {
+          name: '聯絡我們',
+          link: '/contact'
+        },
+        {
+          name: '購物車',
+          link: '/cart'
+        }
+      ]
     }
   },
   methods: {
@@ -59,6 +78,9 @@ export default {
         left: 0,
         behavior: 'smooth'
       })
+    },
+    goNext (n) {
+      this.$router.push(n)
     }
   },
   created () {
@@ -67,8 +89,6 @@ export default {
 }
 </script>
 <style lang="sass">
-// @import '/src/assets/common.sass'
-
 nav.navbar
   position: fixed
   left: 0
@@ -133,7 +153,7 @@ nav.navbar
       height: 30px
       content:''
       display: block
-      background-image: url('/src/assets/images/arrowhead-up.png')
+      background-image: url('/src/assets/images/icon/arrowhead-up.png')
       background-size: contain
       position: absolute
       left: 50%

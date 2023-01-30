@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-6 porLeft" data-aos="flip-left" data-aos-duration="1500" data-aos-offset="400">
+      <div
+        class="col-md-6 porLeft"
+        data-aos="flip-left"
+        data-aos-duration="1500"
+        data-aos-offset="400"
+      >
         <h2>潮流新品</h2>
         <div class="swiperBox">
           <swiper
@@ -10,27 +15,32 @@
             :navigation="true"
             :modules="modules"
           >
-            <swiper-slide>
-              <img src="../assets/images/trainer.jpg" alt="" />
-            </swiper-slide>
-            <swiper-slide>
-              <img src="../assets/images/pack.jpg" alt="" />
-            </swiper-slide>
-            <swiper-slide>
-              <img src="../assets/images/shoes.jpg" alt="" />
-            </swiper-slide>
-            <swiper-slide>
-              <img src="../assets/images/childShoes.jpg" alt="" />
+            <swiper-slide
+              v-for="(item, index) in Hot"
+              :key="index"
+            >
+              <div class="imgBox" @click.prevent="getProductDetail(item.id)">
+                <img :src="item.imageUrl" alt="item.title" />
+                <div class="titleBox">
+                  <h5>NT$ {{ item.price }}</h5>
+                  <h3>{{ item.title }}</h3>
+                </div>
+              </div>
             </swiper-slide>
           </swiper>
         </div>
         <div class="moreProduct">
-          <router-link :to="{name: 'cart'}" class="moreBtn">
+          <a href="#" class="moreBtn" @click.prevent="goType('/typeList/all')">
             <h4>查看更多</h4>
-          </router-link>
+          </a>
         </div>
       </div>
-      <div class="col-md-6 porRight" data-aos="flip-right" data-aos-duration="1500" data-aos-delay="1500">
+      <div
+        class="col-md-6 porRight"
+        data-aos="flip-right"
+        data-aos-duration="1500"
+        data-aos-delay="1000"
+      >
         <div class="textBox">
           <div class="swiperBox">
             <swiper
@@ -39,8 +49,17 @@
               :navigation="true"
               :modules="modules"
             >
-              <swiper-slide>
-                <img src="../assets/images/t-shirt.jpg" alt="" />
+              <swiper-slide
+                v-for="(item, index) in Joint"
+                :key="index"
+              >
+                <div class="imgBox" @click.prevent="getProductDetail(item.id)">
+                  <img :src="item.imageUrl" :alt="item.title" />
+                  <div class="titleBox">
+                    <h5>NT$ {{ item.price }}</h5>
+                    <h3>{{ item.title }}</h3>
+                  </div>
+                </div>
               </swiper-slide>
             </swiper>
           </div>
@@ -54,6 +73,8 @@
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation } from 'swiper'
+import { watchEffect } from 'vue'
+import { useRouter } from 'vue-router'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -64,15 +85,26 @@ export default {
     Swiper,
     SwiperSlide
   },
-  setup () {
-    const proList = [
-      {
-        img: './images/flame.png',
-        id: 'pro-1'
-      }
-    ]
+  props: ['swiperHot', 'swiperJoint'],
+  setup (props) {
+    const router = useRouter()
+    let Hot = null
+    let Joint = null
+    watchEffect(() => {
+      Hot = props.swiperHot
+      Joint = props.swiperJoint
+    })
+    function getProductDetail (id) {
+      router.push(`/product/${id}`)
+    }
+    function goType (n) {
+      router.push(n)
+    }
     return {
-      proList,
+      Hot,
+      Joint,
+      goType,
+      getProductDetail,
       modules: [Navigation]
     }
   }
@@ -117,14 +149,42 @@ export default {
         border: 1px solid #734230
         .swiper-button-next::after,.swiper-button-prev::after
           color: #D98841
-        .swiper-slide
+        .imgBox
             position: relative
             overflow: hidden
+            width: 100%
+            height: 100%
+            cursor: pointer
+            &::before
+              content: ''
+              display: block
+              width: 100%
+              height: 100%
+              background-color: rgba(54,54,54,0.8)
+              position: absolute
+              left: 0
+              top: 0
+              z-index: 2
+              opacity: 0
+              transition: all 0.5s
             img
               width: 100%
               position: absolute
               top: 50%
               transform: translateY(-50%)
+            .titleBox
+              position: absolute
+              left: 10%
+              bottom: 10%
+              z-index: 3
+              opacity: 0
+              transition: all 0.8s
+              h3,h5
+                color: #fff
+            &:hover
+              &::before,.titleBox
+                opacity: 1
+
 .porRight
   position: relative
   h2
@@ -166,6 +226,12 @@ export default {
           left: 50%
           top: auto
           transform: translateX(-50%)
+        .titleBox
+          width: 80%
+          position: absolute
+          top: 50%
+          left: 50%
+          transform: translate(-50%,-50%)
 .moreProduct
   display: flex
   justify-content: center

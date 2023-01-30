@@ -1,30 +1,28 @@
 <template>
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 copyBox">
-          <a href="https://tw.portal-pokemon.com/" target= _blank>
-            <img
-              src="@/assets/images/International_Pokémon_logo.svg.png"
-              alt=""
-            />
-          </a>
-        </div>
-        <div class="col-md-4 copyBox">
-          <p>
-            Copyright © Jing Yu Sing 2023
-            <br />
-            僅個人作品，無商業用途
-          </p>
-        </div>
-        <div class="col-md-4 copyBox">
-          <router-link :to="{ name: 'login' }" class="adminBox">
-            <p>管理員登入</p>
-          </router-link>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 copyBox">
+        <a href="https://tw.portal-pokemon.com/" target= _blank>
+          <img
+            src="@/assets/images/International_Pokémon_logo.svg.png"
+            alt=""
+          />
+        </a>
+      </div>
+      <div class="col-md-4 copyBox">
+        <p>
+          Copyright © Jing Yu Sing 2023
+          <br />
+          僅個人作品，無商業用途
+        </p>
+      </div>
+      <div class="col-md-4 copyBox">
+        <router-link :to="{ name: 'login' }" class="adminBox">
+          <p>管理員登入</p>
+        </router-link>
       </div>
     </div>
-  </footer>
+  </div>
 </template>
 
 <style lang="sass">
