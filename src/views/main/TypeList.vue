@@ -61,7 +61,11 @@
                   <div class="priceBox">
                     <p>特價NT$ {{ item.price }}</p>
                   </div>
-                  <button type="button" class="btn btn-primary">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    @click.stop="addCart(item.id)"
+                  >
                     加入購物車
                   </button>
                 </div>
@@ -179,6 +183,18 @@ export default {
     empty () {
       this.searchList.word = null
       this.keyword = null
+    },
+    addCart (id) {
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
+      const cart = {
+        data: {
+          product_id: id,
+          qty: 1
+        }
+      }
+      this.axios.post(url, cart).then((res) => {
+        console.log(res)
+      })
     }
   },
   watch: {
