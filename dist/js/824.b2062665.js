@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkjs_shop"]=self["webpackChunkjs_shop"]||[]).push([[824],{6801:function(n,r,s){s.r(r),s.d(r,{default:function(){return l}});var e=s(3099),t=s.p+"img/banner3.28473656.jpg";const u=(0,e._)("section",{class:"banner"},[(0,e._)("img",{src:t,alt:""}),(0,e._)("h2",null,"聯絡我們")],-1);function c(n,r){const s=(0,e.up)("router-view");return(0,e.wg)(),(0,e.iD)(e.HY,null,[u,(0,e.Wm)(s)],64)}var a=s(5727);const o={},i=(0,a.Z)(o,[["render",c]]);var l=i}}]);
+//# sourceMappingURL=824.b2062665.js.map
