@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-light" :class="{top: isTop}">
       <div class="containBox">
         <router-link :to="{ name: 'index' }" class="navbar-brand">
-          <img src="@/assets/images/pokemonStore.png" alt="">
+          <img :src="img" alt="">
         </router-link>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mb-2 mb-lg-0">
@@ -40,6 +40,7 @@
 export default {
   data () {
     return {
+      img: './assets/images/pokemon/pokemonStore.png',
       isTop: false,
       backTop: false,
       pageList: [
@@ -153,7 +154,7 @@ nav.navbar
       height: 30px
       content:''
       display: block
-      background-image: url('/src/assets/images/icon/arrowhead-up.png')
+      background-image: url('/public/assets/images/icon/arrowhead-up.png')
       background-size: contain
       position: absolute
       left: 50%

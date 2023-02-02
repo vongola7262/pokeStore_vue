@@ -109,28 +109,28 @@ export default {
           title: '潮流訓練家專區',
           detail: '大人小孩各年齡層一應具全，一年四季都有寶可夢陪伴。',
           subStandard: '最新登場',
-          icon: './images/flame.png',
+          icon: './assets/images/icon/flame.png',
           link: '/typeList/hot'
         },
         {
           title: '最新話題焦點',
           detail: '各大品牌聯名商品，時下討論度最高的熱門服飾。',
           subStandard: '熱銷聯名',
-          icon: './images/lightning.png',
+          icon: './assets/images/icon/lightning.png',
           link: '/typeList/joint'
         },
         {
           title: '各大運動用品',
           detail: '室內室外運動都適合，外出散步也能成為焦點。',
           subStandard: '外出必備',
-          icon: './images/cap.png',
+          icon: './assets/images/icon/cap.png',
           link: '/typeList/Tshirt'
         },
         {
           title: '高係數防曬乳',
           detail: '抵抗太陽光，外出同時也保護自身身體，出門不可少。',
           subStandard: '抵抗紫外線',
-          icon: './images/sunscreen.png',
+          icon: './assets/images/icon/sunscreen.png',
           link: '/typeList/sunscreen'
         },
         {
@@ -138,14 +138,14 @@ export default {
           detail:
             '輔助遊玩的好幫手，讓手機喘口氣休息的同時，繼續探索寶可夢世界。',
           subStandard: '隨處探索',
-          icon: './images/smart-watch.png',
+          icon: './assets/images/icon/smart-watch.png',
           link: '/typeList/3C'
         },
         {
           title: '寶可夢手機殼',
           detail: '強力防摔手機殼，保護手機，放心遊玩。',
           subStandard: '訓練家專屬',
-          icon: './images/phone-case.png',
+          icon: './assets/images/icon/phone-case.png',
           link: '/typeList/phoneCase'
         }
       ],
@@ -206,7 +206,7 @@ $lightBlack: #747A8C
 section.homePage
   width: 100%
   min-height: 100vh
-  background-image: url('/src/assets/images/banner/banner.jpg')
+  background-image: url('/public/assets/images/banner/banner.jpg')
   background-repeat: no-repeat
   background-size: cover
   background-position: center
@@ -253,7 +253,7 @@ section.homePage
     cursor: pointer
     width: 35px
     height: 35px
-    background-image: url('/src/assets/images/Poké_Balls.png')
+    background-image: url('/public/assets/images/pokemon/Poké_Balls.png')
     background-size: contain
     position: absolute
     left: 50%
@@ -367,14 +367,14 @@ section.learnMore
       &::before
         width: 120px
         height: 140px
-        background-image: url('/src/assets/images/pick3.png')
+        background-image: url('/public/assets/images/pokemon/pick3.png')
         position: absolute
         bottom: -40px
         left: -100px
       &::after
         width: 180px
         height: 150px
-        background-image: url('/src/assets/images/eby1.png')
+        background-image: url('/public/assets/images/pokemon/eby1.png')
         position: absolute
         bottom: -20px
         right: -100px

@@ -1,11 +1,5 @@
 <template>
-  <LoadingPage
-    :active="isLoading"
-    :opacity="0.8"
-    :background-color="`#fff`"
-  >
-    <img src="../../assets/images/pika.gif" alt="" style="width: 250px;height: 250px">
-  </LoadingPage>
+  <LoadingImg :loadStatus="isLoading"></LoadingImg>
   <div class="text-end">
     <button
      class="btn btn-primary"
@@ -52,11 +46,13 @@
 <script>
 import Modal from '@/components/ProductMenu.vue'
 import PageList from '@/components/PageList.vue'
+import LoadingImg from '@/components/LoadingImg.vue'
 
 export default {
   components: {
     Modal,
-    PageList
+    PageList,
+    LoadingImg
   },
   data () {
     return {

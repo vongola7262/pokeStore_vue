@@ -44,11 +44,6 @@ const routes = [
         component: () => import('../views/main/HomeView.vue')
       },
       {
-        path: 'cart',
-        name: 'cart',
-        component: () => import('../views/main/ProductCart.vue')
-      },
-      {
         path: 'typeList/:id',
         name: 'typeList',
         component: () => import('../views/main/TypeList.vue'),
@@ -67,17 +62,39 @@ const routes = [
       {
         path: 'contact',
         name: 'contact',
-        component: () => import('../views/main/ContactUs.vue'),
+        component: () => import('../views/main/contact/ContactUs.vue'),
         children: [
           {
             path: '',
             name: 'form',
-            component: () => import('../views/main/form/UserForm.vue')
+            component: () => import('../views/main/contact/UserForm.vue')
           },
           {
             path: 'success',
             name: 'success',
-            component: () => import('../views/main/form/FormSuccess.vue')
+            component: () => import('../views/main/contact/FormSuccess.vue')
+          }
+        ]
+      },
+      {
+        path: 'cart',
+        name: 'cart',
+        component: () => import('../views/main/cart/ProductCart.vue'),
+        children: [
+          {
+            path: '',
+            name: 'cartlist',
+            component: () => import('../views/main/cart/CartList.vue')
+          },
+          {
+            path: 'cartform',
+            name: 'cartform',
+            component: () => import('../views/main/cart/CartForm.vue')
+          },
+          {
+            path: 'cartsuccess',
+            name: 'cartsuccess',
+            component: () => import('../views/main/cart/CartSuccess.vue')
           }
         ]
       }

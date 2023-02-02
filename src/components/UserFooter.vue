@@ -4,7 +4,7 @@
       <div class="col-md-4 copyBox">
         <a href="https://tw.portal-pokemon.com/" target= _blank>
           <img
-            src="@/assets/images/International_Pokémon_logo.svg.png"
+            :src="img"
             alt=""
           />
         </a>
@@ -25,8 +25,17 @@
   </div>
 </template>
 
-<style lang="sass">
+<script>
+export default {
+  data () {
+    return {
+      img: './assets/images/pokemon/International_Pokémon_logo.svg.png'
+    }
+  }
+}
+</script>
 
+<style lang="sass">
 footer
   padding: 50px 0
   background-color: #5c4343

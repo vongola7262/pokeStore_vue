@@ -1,11 +1,5 @@
 <template>
-  <LoadingPage :active="isLoading" :opacity="0.8" :background-color="`#fff`">
-    <img
-      src="../../assets/images/pika.gif"
-      alt=""
-      style="width: 250px; height: 250px"
-    />
-  </LoadingPage>
+  <LoadingImg :loadStatus="isLoading"></LoadingImg>
   <section class="mainProduct">
     <!-- {{ product }} -->
     {{ product }}
@@ -38,8 +32,13 @@
 </template>
 
 <script>
+import LoadingImg from '@/components/LoadingImg.vue'
+
 export default {
   props: ['id'],
+  components: {
+    LoadingImg
+  },
   data () {
     return {
       product: null,

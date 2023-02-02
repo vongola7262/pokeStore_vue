@@ -137,7 +137,7 @@ export default {
       display: block
       width: 200px
       height: 180px
-      background-image: url('/src/assets/images/pick2.png')
+      background-image: url('/public/assets/images/pokemon/pick2.png')
       background-repeat: no-repeat
       background-size: contain
       background-position: center
@@ -210,7 +210,7 @@ export default {
         display: block
         width: 100px
         height: 200px
-        background-image: url('/src/assets/images/pick1.png')
+        background-image: url('/public/assets/images/pokemon/pick1.png')
         background-repeat: no-repeat
         background-size: contain
         background-position: center

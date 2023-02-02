@@ -1,7 +1,6 @@
 <template>
-  <LoadingPage :active="isLoading"></LoadingPage>
+  <LoadingImg :loadStatus="isLoading"></LoadingImg>
   <div>
-    <LoadingPage :active="isLoading"></LoadingPage>
     <div class="text-end mt-4">
       <button class="btn btn-primary" @click.prevent="openMenu(false)">
         建立新的優惠券
@@ -47,11 +46,13 @@
 <script>
 import Modal from '@/components/VoucherMenu.vue'
 import PageList from '@/components/PageList.vue'
+import LoadingImg from '@/components/LoadingImg.vue'
 
 export default {
   components: {
     Modal,
-    PageList
+    PageList,
+    LoadingImg
   },
   data () {
     return {

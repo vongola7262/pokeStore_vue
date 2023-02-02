@@ -1,15 +1,6 @@
 <template>
-  <LoadingPage :active="isLoading" :opacity="0.9" :background-color="`#fff`">
-    <img
-      src="../../assets/images/pika.gif"
-      alt=""
-      style="width: 250px; height: 250px"
-    />
-  </LoadingPage>
-  <section class="banner">
-    <img src="../../assets/images/banner/banner2.jpg" alt="" />
-    <h2>商品列表</h2>
-  </section>
+  <LoadingImg :loadStatus="isLoading"></LoadingImg>
+  <BannerImg :banner="bannerDetail"></BannerImg>
   <section class="mainList">
     <div class="container">
       <div class="row">
@@ -93,14 +84,22 @@
 
 <script>
 import UserPageList from '@/components/UserPageList.vue'
+import LoadingImg from '@/components/LoadingImg.vue'
+import BannerImg from '@/components/BannerImg.vue'
 
 export default {
   props: ['id'],
   components: {
-    UserPageList
+    UserPageList,
+    LoadingImg,
+    BannerImg
   },
   data () {
     return {
+      bannerDetail: {
+        title: '商品列表',
+        img: './assets/images/banner/banner2.jpg'
+      },
       typeList: [
         {
           id: 'all',
@@ -254,37 +253,6 @@ export default {
 </script>
 
 <style lang="sass">
-section.banner
-    width: 100%
-    height: 250px
-    position: relative
-    overflow: hidden
-    display: flex
-    justify-content: center
-    align-items: center
-    &::before
-        content: ''
-        display: block
-        width: 100%
-        height: 100%
-        background-color: rgba(255,255,255, 0.5)
-        position: absolute
-        left: 0
-        top: 0
-        z-index: 2
-    img
-        position: absolute
-        left: 50%
-        top: 50%
-        transform: translate(-50%,-50%)
-        width: 100%
-    h2
-        position: relative
-        z-index: 3
-        color: #734230
-        font-size: 42px
-        letter-spacing: 20px
-        text-shadow:  #fff 1px 0 10px
 section.mainList
     padding: 60px 0
     min-height: 100vh
