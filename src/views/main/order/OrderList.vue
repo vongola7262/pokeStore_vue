@@ -9,13 +9,13 @@
         >
         <button
           type="button"
-          @click.prevent="keyWordSearch"
+          @click.prevent="keyWordSearch(true)"
         >
           <p>搜尋</p>
         </button>
         <button
           type="button"
-          @click.prevent="cleanSearch"
+          @click.prevent="keyWordSearch(false)"
         >
           <p>清除</p>
         </button>
@@ -116,14 +116,15 @@ export default {
     checkOrder (id) {
       this.$router.push(`/order/checkout/${id}`)
     },
-    // 訂單編號搜尋
-    keyWordSearch () {
+    // 訂單編號搜尋 / 清除
+    keyWordSearch (s) {
+      if (s === true) {
+        this.search = this.keyword
+      } else {
+        this.search = ''
+        this.keyword = ''
+      }
       this.search = this.keyword
-    },
-    // 清空
-    cleanSearch () {
-      this.search = ''
-      this.keyword = ''
     },
     // 頁數計算
     calc (n) {

@@ -2,10 +2,17 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-light" :class="{top: isTop}">
       <div class="containBox">
-        <router-link :to="{ name: 'index' }" class="navbar-brand">
+        <a href="#"
+          class="navbar-brand"
+          @click.prevent="goIndex"
+        >
           <img :src="img" alt="">
-        </router-link>
-        <div class="collapse navbar-collapse" id="navbarText">
+        </a>
+        <div
+          class="navbar-collapse"
+          id="navbarText"
+          :class="{ open: !phoneStatus}"
+        >
           <ul class="navbar-nav mb-2 mb-lg-0">
             <li v-for="(item, index) in pageList" :key="index">
               <a href="#" class="nav-link" @click.prevent="goNext(item.link)">
@@ -13,6 +20,15 @@
               </a>
             </li>
           </ul>
+        </div>
+        <div
+          class="hamburger"
+          :class="{ close: phoneStatus , open: !phoneStatus}"
+          @click.prevent="phoneBar"
+        >
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
         </div>
       </div>
       <a class="topTip" :class="{top: backTop}" @click.prevent="backToTop">
@@ -28,6 +44,7 @@ export default {
       img: './assets/images/pokemon/pokemonStore.png',
       isTop: false,
       backTop: false,
+      phoneStatus: true,
       pageList: [
         {
           name: '商品',
@@ -71,6 +88,18 @@ export default {
     },
     goNext (n) {
       this.$router.push(n)
+      this.phoneStatus = true
+    },
+    goIndex () {
+      this.$router.push({ name: 'index' })
+      this.phoneStatus = true
+    },
+    phoneBar () {
+      if (this.phoneStatus === true) {
+        this.phoneStatus = false
+      } else {
+        this.phoneStatus = true
+      }
     }
   },
   created () {
@@ -94,10 +123,62 @@ nav.navbar
     display: flex
   .navbar-brand
     height: 50px
+    @media screen and (max-width:575px)
+      height: 40px
     img
       height: 100%
-  .collapse
+  .navbar-collapse
     justify-content: flex-end
+    @media screen and (max-width:991px)
+      display: none
+      &.open
+        display: block
+      position: fixed
+      top: 0
+      left: 0
+      width: 100%
+      height: 100vh
+      background-color: #f0dec9
+      z-index: -1
+
+  .hamburger
+    width: 25px
+    height: 20px
+    display: none
+    flex-direction: column
+    justify-content: space-between
+    cursor: pointer
+    @media screen and (max-width:991px)
+      display: flex
+      position: absolute
+      right: 5%
+      top: 50%
+      transform: translateY(-50%)
+      z-index: 5
+    .line
+      width: 100%
+      height: 2px
+      position: relative
+      transition: all 0.3s
+      background-color: #4a3921
+    &.open
+      .line:first-child
+        transform: rotate(45deg)
+        top: 45%
+      .line:nth-child(2)
+        opacity: 0
+      .line:last-child
+        transform: rotate(-45deg)
+        top: -45%
+    &.close
+      .line:first-child
+        transform: rotate(0deg)
+        top: 0%
+      .line:nth-child(2)
+        opacity: 1
+      .line:last-child
+        transform: rotate(0deg)
+        top: 0%
   li
     margin: 0 10px
     position: relative

@@ -2,13 +2,13 @@
   <div class="container">
     <div class="row">
       <div
-        class="col-md-6 porLeft"
+        class="col-lg-6 porLeft"
         data-aos="flip-left"
         data-aos-duration="1500"
         data-aos-offset="400"
       >
         <h2>潮流新品</h2>
-        <div class="swiperBox">
+        <div class="swiperBox swiperboxL">
           <swiper
             :slides-per-view="1"
             :space-between="50"
@@ -19,7 +19,7 @@
               v-for="(item, index) in Hot"
               :key="index"
             >
-              <div class="imgBox" @click.prevent="getProductDetail(item.id)">
+              <div class="imgBox swiperL" @click.prevent="getProductDetail(item.id)">
                 <img :src="item.imageUrl" alt="item.title" />
                 <div class="titleBox">
                   <h5>NT$ {{ item.price }}</h5>
@@ -29,14 +29,9 @@
             </swiper-slide>
           </swiper>
         </div>
-        <div class="moreProduct">
-          <a href="#" class="moreBtn" @click.prevent="goType('/typeList/all')">
-            <h4>查看更多</h4>
-          </a>
-        </div>
       </div>
       <div
-        class="col-md-6 porRight"
+        class="col-lg-6 porRight"
         data-aos="flip-right"
         data-aos-duration="1500"
         data-aos-delay="1000"
@@ -53,7 +48,7 @@
                 v-for="(item, index) in Joint"
                 :key="index"
               >
-                <div class="imgBox" @click.prevent="getProductDetail(item.id)">
+                <div class="imgBox swiperR" @click.prevent="getProductDetail(item.id)">
                   <img :src="item.imageUrl" :alt="item.title" />
                   <div class="titleBox">
                     <h5>NT$ {{ item.price }}</h5>
@@ -65,6 +60,13 @@
           </div>
         </div>
         <h2>熱銷聯名</h2>
+      </div>
+      <div class="col-lg-12">
+        <div class="moreProduct">
+          <a href="#" class="moreBtn" @click.prevent="goType('/typeList/all')">
+            <h4>查看更多</h4>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -120,9 +122,14 @@ export default {
       margin-bottom: 60px
       text-align: center
       letter-spacing: 10px
+      @media screen and (max-width:575px)
+        font-size: 30px
 .swiperBox
     position: relative
-    height: 400px
+    &.swiperboxL
+      @media screen and (max-width:991px)
+        width: 90%
+        margin: 0 auto
     &::before
       content: ''
       display: block
@@ -153,7 +160,7 @@ export default {
             position: relative
             overflow: hidden
             width: 100%
-            height: 100%
+            height: 0
             cursor: pointer
             &::before
               content: ''
@@ -172,6 +179,10 @@ export default {
               position: absolute
               top: 50%
               transform: translateY(-50%)
+            &.swiperL
+              padding-bottom: 66.66%
+            &.swiperR
+              padding-bottom: 150%
             .titleBox
               position: absolute
               left: 10%
@@ -179,6 +190,9 @@ export default {
               z-index: 3
               opacity: 0
               transition: all 0.8s
+              display: flex
+              flex-direction: column
+              justify-content: center
               h3,h5
                 color: #fff
             &:hover
@@ -187,6 +201,8 @@ export default {
 
 .porRight
   position: relative
+  @media screen and (max-width:991px)
+    margin-top: 100px
   h2
     font-size: 36px
     color: #734230
@@ -196,12 +212,30 @@ export default {
     position: absolute
     right: 12%
     top: 10%
+    @media screen and (max-width:1399px)
+      right: 5%
+    @media screen and (max-width:1199px)
+      right: 2%
+    @media screen and (max-width:991px)
+      right: 20%
+    @media screen and (max-width:767px)
+      right: 10%
+    @media screen and (max-width:575px)
+      font-size: 30px
   .textBox
     width: 80%
     max-width: 350px
     margin: 0 auto
+    @media screen and (max-width:1199px)
+      width: 70%
+    @media screen and (max-width:991px)
+      position: relative
+      right: 50px
+      width: 80%
+      max-width: 400px
+    @media screen and (max-width:767px)
+      width: 70%
     .swiperBox
-      height: 500px
       &::before
         height: 90%
         right: -100px
@@ -219,6 +253,10 @@ export default {
         right: -65px
         bottom: 10px
         z-index: 2
+        @media screen and (max-width:575px)
+          width: 70px
+          height: 140px
+          bottom: -50px
       .swiper-slide
         img
           width: auto

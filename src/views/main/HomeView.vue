@@ -229,6 +229,8 @@ section.homePage
     top: 15%
     z-index: 2
     display: flex
+    @media screen and (max-width:991px)
+      justify-content: center
   .titleBox
     background: rgba(120,116,109,0.9)
     padding: 10px
@@ -239,13 +241,19 @@ section.homePage
     .mainBox
       padding: 30px 50px
       border: 1px solid #ffffff
+      @media screen and (max-width:575px)
+        padding: 10px 30px
     h1
       font-size: 50px
       color: #ffffff
       margin: 20px 0
+      @media screen and (max-width:575px)
+        font-size: 36px
     h6
       font-size: 24px
       color: #ffffff
+      @media screen and (max-width:575px)
+        font-size: 20px
     p
       font-size: 18px
       color: #ffffff
@@ -281,14 +289,24 @@ section.homePage
 section.productSwiper
   padding: 150px 0
   background-color: $darkBrown
+  @media screen and (max-width:991px)
+    padding: 100px 0
+  @media screen and (max-width:767px)
+    padding: 50px 0
 section.productList
   padding: 150px 0
   background-color: $brown
+  @media screen and (max-width:991px)
+    padding: 100px 0
+  @media screen and (max-width:767px)
+    padding: 50px 0
   .productType
     display: flex
     align-items: center
     margin: 40px 0
     text-decoration: none
+    @media screen and (max-width:767px)
+      margin: 20px 0
     .iconBox
       width: 110px
       height: 110px
@@ -328,13 +346,24 @@ section.productList
     display: flex
     justify-content: flex-end
     padding-top: 40px
+    @media screen and (max-width:575px)
+      justify-content: center
 section.learnMore
   padding: 100px 0 150px 0
   background-color: $brown
+  overflow: hidden
+  @media screen and (max-width:991px)
+    padding: 100px 0
+  @media screen and (max-width:767px)
+    padding: 50px 0
+  @media screen and (max-width:575px)
+    padding: 50px 0 100px 0
   h2
     font-size: 36px
     color: #734230
     margin-bottom: 30px
+    @media screen and (max-width:575px)
+      font-size: 30px
   p
     color: $black
   .moreText
@@ -357,6 +386,8 @@ section.learnMore
       z-index: 2
       h3
         font-size: 36px
+        @media screen and (max-width:575px)
+          font-size: 24px
       &::before,&::after
         content: ''
         display: block
@@ -378,6 +409,8 @@ section.learnMore
         position: absolute
         bottom: -20px
         right: -100px
+        @media screen and (max-width:575px)
+          right: -130px
     .timeText
       text-align: center
       padding-top: 20px
@@ -385,6 +418,9 @@ section.learnMore
         font-size: 36px
         color: #734230
         margin-bottom: 10px
+        @media screen and (max-width:575px)
+          font-size: 30px
+          letter-spacing: 1px
       p
         color: #313b46
         margin-bottom: 30px

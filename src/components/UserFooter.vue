@@ -44,6 +44,10 @@ footer
     justify-content: center
     align-items: center
     text-align: center
+    @media screen and (max-width:768px)
+      margin-bottom: 20px
+      &:last-child
+        margin-bottom: 0
     img
         width: 80%
         max-width: 140px
