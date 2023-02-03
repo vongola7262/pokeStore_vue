@@ -77,6 +77,31 @@ const routes = [
         ]
       },
       {
+        path: 'order',
+        name: 'order',
+        component: () => import('../views/main/order/OrderPage.vue'),
+        children: [
+          {
+            path: '',
+            name: 'orderlist',
+            component: () => import('../views/main/order/OrderList.vue')
+          },
+          {
+            path: 'checkout/:id',
+            name: 'checkout',
+            component: () => import('../views/main/order/CheckOut.vue'),
+            props: route => ({
+              id: route.params.id
+            })
+          },
+          {
+            path: 'cartsuccess',
+            name: 'cartsuccess',
+            component: () => import('../views/main/order/OrderSuccess.vue')
+          }
+        ]
+      },
+      {
         path: 'cart',
         name: 'cart',
         component: () => import('../views/main/cart/ProductCart.vue'),
@@ -90,11 +115,6 @@ const routes = [
             path: 'cartform',
             name: 'cartform',
             component: () => import('../views/main/cart/CartForm.vue')
-          },
-          {
-            path: 'cartsuccess',
-            name: 'cartsuccess',
-            component: () => import('../views/main/cart/CartSuccess.vue')
           }
         ]
       }

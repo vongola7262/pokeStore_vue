@@ -33,6 +33,9 @@
     <p>原價 {{ total }}</p>
     <p>折價 {{ total - final_total }}</p>
     <p>總金額 {{ final_total }}</p>
+    <a href="#" @click.prevent="nextStep()">
+      <p>下一步</p>
+    </a>
   </section>
 </template>
 
@@ -103,6 +106,10 @@ export default {
         console.log(res)
         this.getCartList()
       })
+    },
+    // 結帳
+    nextStep () {
+      this.$router.push({ name: 'cartform' })
     }
   },
   created () {

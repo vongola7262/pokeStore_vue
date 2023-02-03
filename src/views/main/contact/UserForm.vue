@@ -75,7 +75,7 @@
                 class="radioBox"
                 :rules="{ required: true }"
               />
-              <label for="morning">
+              <label for="1">
                 <h6>8:00 ~ 12:00</h6>
               </label>
             </div>
@@ -84,7 +84,7 @@
                 type="radio"
                 name="meetTime"
                 id="night"
-                value="night"
+                value="2"
                 v-model="meetTime"
                 class="radioBox"
                 :rules="{ required: true }"
@@ -98,7 +98,7 @@
                 type="radio"
                 name="meetTime"
                 id="else"
-                value="else"
+                value="3"
                 v-model="meetTime"
                 class="radioBox"
                 :rules="{ required: true }"

@@ -7,21 +7,6 @@
         </router-link>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mb-2 mb-lg-0">
-            <!-- <li class="nav-item">
-              <router-link :to="{ name: 'typeList' }" class="nav-link">
-                <p>商品</p>
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link :to="{ name: 'contact' }" class="nav-link">
-                <p>聯絡我們</p>
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link :to="{ name: 'cart' }" class="nav-link">
-                <p>購物車</p>
-              </router-link>
-            </li> -->
             <li v-for="(item, index) in pageList" :key="index">
               <a href="#" class="nav-link" @click.prevent="goNext(item.link)">
                 <p>{{ item.name }}</p>
@@ -49,12 +34,16 @@ export default {
           link: '/typeList/all'
         },
         {
-          name: '聯絡我們',
-          link: '/contact'
-        },
-        {
           name: '購物車',
           link: '/cart'
+        },
+        {
+          name: '訂單查詢',
+          link: '/order'
+        },
+        {
+          name: '聯絡我們',
+          link: '/contact'
         }
       ]
     }
