@@ -20,6 +20,8 @@ section.banner
     display: flex
     justify-content: center
     align-items: center
+    @media screen and (max-width:575px)
+      height: 160px
     &::before
         content: ''
         display: block
@@ -36,6 +38,9 @@ section.banner
         top: 50%
         transform: translate(-50%,-50%)
         width: 100%
+        min-height: 200px
+        @media screen and (max-width:575px)
+          min-height: 160px
     h2
         position: relative
         z-index: 3
@@ -43,4 +48,8 @@ section.banner
         font-size: 42px
         letter-spacing: 20px
         text-shadow:  #fff 1px 0 10px
+        margin-bottom: 0
+        @media screen and (max-width:575px)
+          font-size: 32px
+          letter-spacing: 10px
 </style>

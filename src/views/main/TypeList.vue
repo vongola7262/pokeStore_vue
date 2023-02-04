@@ -3,6 +3,29 @@
   <BannerImg :banner="bannerDetail"></BannerImg>
   <section class="mainList">
     <div class="container">
+      <div class="row keywordBox">
+        <div class="input-group">
+          <input type="text"
+            class="form-control"
+            placeholder="關鍵字搜尋"
+            aria-label="Recipient's username"
+            aria-describedby="button-addon2"
+            v-model="keyword"
+          >
+          <button class="btn btn-primary"
+            type="button"
+            @click.prevent="search"
+          >
+            搜尋
+          </button>
+          <button class="btn btn-secondary"
+            type="button"
+            @click.prevent="empty"
+          >
+            清除
+          </button>
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-3">
           <ul class="typeList">
@@ -17,31 +40,8 @@
           </ul>
         </div>
         <div class="col-md-9">
-          <div class="row keywordBox">
-              <div class="input-group">
-                <input type="text"
-                  class="form-control"
-                  placeholder="關鍵字搜尋"
-                  aria-label="Recipient's username"
-                  aria-describedby="button-addon2"
-                  v-model="keyword"
-                >
-                <button class="btn btn-primary"
-                  type="button"
-                  @click.prevent="search"
-                >
-                  搜尋
-                </button>
-                <button class="btn btn-secondary"
-                  type="button"
-                  @click.prevent="empty"
-                >
-                  清除
-                </button>
-              </div>
-            </div>
           <div class="row listBox">
-            <div class="col-md-4" v-for="item in pageDetail" :key="item.id">
+            <div class="col-sm-6 col-lg-4" v-for="item in pageDetail" :key="item.id">
               <div class="card" @click.prevent="getProductDetail(item.id)">
                 <div class="imgBox">
                   <img :src="item.imageUrl" class="card-img-top" alt="" />

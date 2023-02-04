@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light" :class="{top: isTop}">
+    <nav class="navbar navbar-expand-md navbar-light" :class="{top: isTop}">
       <div class="containBox">
         <a href="#"
           class="navbar-brand"
@@ -11,9 +11,9 @@
         <div
           class="navbar-collapse"
           id="navbarText"
-          :class="{ open: !phoneStatus}"
+          :class="{ close: !phoneStatus && !loadFirst ,open: phoneStatus && !loadFirst}"
         >
-          <ul class="navbar-nav mb-2 mb-lg-0">
+          <ul class="navbar-nav mb-lg-0">
             <li v-for="(item, index) in pageList" :key="index">
               <a href="#" class="nav-link" @click.prevent="goNext(item.link)">
                 <p>{{ item.name }}</p>
@@ -23,7 +23,7 @@
         </div>
         <div
           class="hamburger"
-          :class="{ close: phoneStatus , open: !phoneStatus}"
+          :class="{ close: !phoneStatus && !loadFirst ,open: phoneStatus && !loadFirst}"
           @click.prevent="phoneBar"
         >
           <span class="line"></span>
@@ -42,9 +42,13 @@ export default {
   data () {
     return {
       img: './assets/images/pokemon/pokemonStore.png',
+      // 導覽列是否置頂
       isTop: false,
+      // 是否出現回最上方
       backTop: false,
-      phoneStatus: true,
+      // 手機版選單開關 初始化狀態
+      loadFirst: true,
+      phoneStatus: false,
       pageList: [
         {
           name: '商品',
@@ -79,6 +83,12 @@ export default {
         this.isTop = false
       }
     },
+    viewType () {
+      if (window.outerWidth > 767) {
+        this.phoneStatus = false
+        this.loadFirst = true
+      }
+    },
     backToTop () {
       window.scrollTo({
         top: 0,
@@ -88,13 +98,16 @@ export default {
     },
     goNext (n) {
       this.$router.push(n)
-      this.phoneStatus = true
+      this.phoneStatus = false
+      this.loadFirst = true
     },
     goIndex () {
       this.$router.push({ name: 'index' })
-      this.phoneStatus = true
+      this.phoneStatus = false
+      this.loadFirst = true
     },
     phoneBar () {
+      this.loadFirst = false
       if (this.phoneStatus === true) {
         this.phoneStatus = false
       } else {
@@ -104,6 +117,7 @@ export default {
   },
   created () {
     window.addEventListener('scroll', this.userBar)
+    window.addEventListener('resize', this.viewType)
   }
 }
 </script>
@@ -129,17 +143,60 @@ nav.navbar
       height: 100%
   .navbar-collapse
     justify-content: flex-end
-    @media screen and (max-width:991px)
-      display: none
-      &.open
-        display: block
+    @media screen and (max-width:767px)
       position: fixed
       top: 0
       left: 0
       width: 100%
       height: 100vh
-      background-color: #f0dec9
       z-index: -1
+      transform: scale(0)
+      padding: 50px 0
+      &::before
+        content: ''
+        display: none
+        position: absolute
+        left: 50%
+        top: 50%
+        transform: translate(-50%,-50%)
+        border-radius: 50%
+        width: 200vh
+        height: 200vh
+        background-color: #D9BD9C
+      ul
+        opacity: 0
+      &.open
+        animation: phoneOpen2 0.7s forwards
+        &::before
+          display: block
+        ul
+          animation: phoneOpen 0.3s 0.7s forwards
+      &.close
+        animation: phoneClose2 1.2s forwards
+        &::before
+          display: block
+        ul
+          animation: phoneClose 0.1s forwards
+      @keyframes phoneOpen
+        0%
+          opacity: 0
+        100%
+          opacity: 1
+      @keyframes phoneClose
+        0%
+          opacity: 1
+        100%
+          opacity: 0
+      @keyframes phoneOpen2
+        0%
+          transform: scale(0)
+        100%
+          transform: scale(1)
+      @keyframes phoneClose2
+        0%
+          transform: scale(1)
+        100%
+          transform: scale(0)
 
   .hamburger
     width: 25px
@@ -148,13 +205,12 @@ nav.navbar
     flex-direction: column
     justify-content: space-between
     cursor: pointer
-    @media screen and (max-width:991px)
+    position: absolute
+    right: 5%
+    top: 50%
+    transform: translateY(-50%)
+    @media screen and (max-width:767px)
       display: flex
-      position: absolute
-      right: 5%
-      top: 50%
-      transform: translateY(-50%)
-      z-index: 5
     .line
       width: 100%
       height: 2px
@@ -179,6 +235,7 @@ nav.navbar
       .line:last-child
         transform: rotate(0deg)
         top: 0%
+
   li
     margin: 0 10px
     position: relative

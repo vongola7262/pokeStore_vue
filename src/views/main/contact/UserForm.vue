@@ -192,7 +192,7 @@ export default {
 <style lang="sass">
 section.mainForm
   background-color: #f0dec9
-  padding: 80px 0
+  padding: 60px 0
   form
     width: 80%
     max-width: 800px
@@ -202,6 +202,9 @@ section.mainForm
     background-color: #fff
     box-shadow:  8px 8px 14px #734230
     position: relative
+    overflow: hidden
+    @media screen and (max-width:575px)
+      width: 90%
     &::before,&::after
       content: ''
       display: block
@@ -224,6 +227,8 @@ section.mainForm
       transform: rotate(60deg)
     .nameGroup
       max-width: 50%
+      @media screen and (max-width:575px)
+        max-width: 100%
     .inputGroup
       display: flex
       flex-direction: column
@@ -255,9 +260,18 @@ section.mainForm
         font-size: 18px
         color: #3C4959
         opacity: 0.9
+        @media screen and (max-width:991px)
+          letter-spacing: 1px
+        @media screen and (max-width:767px)
+          margin-bottom: 15px
       .radiolist
         input
           margin-right: 10px
+        &:last-child
+          label
+            h6
+              @media screen and (max-width:767px)
+                margin-bottom: 0
       .textBox
         display: flex
         align-items: flex-end
@@ -282,6 +296,8 @@ section.mainForm
       h4
         font-size: 18px
         margin-top: 15px
+        @media screen and (max-width:575px)
+          margin-top: 5px
       h2:before
         content: ''
         display: block
@@ -295,13 +311,23 @@ section.mainForm
         top: 50%
         left: -60px
         transform: translateY(-40%)
+        @media screen and (max-width:575px)
+          left: -45px
     .formMain
       width: 90%
       margin: 0 auto
+      @media screen and (max-width:575px)
+        width: 100%
     .group,.timeList
       display: flex
       .inputGroup,.radiolist
         flex: 1
+    .group
+      @media screen and (max-width:991px)
+        flex-direction: column
+    .timeList
+      @media screen and (max-width:767px)
+        flex-direction: column
     .buttonBox
       display: flex
       justify-content: center
