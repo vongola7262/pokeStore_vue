@@ -8,7 +8,6 @@
           <input type="text"
             class="form-control"
             placeholder="關鍵字搜尋"
-            aria-label="Recipient's username"
             aria-describedby="button-addon2"
             v-model="keyword"
           >

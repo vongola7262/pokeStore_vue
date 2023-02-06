@@ -1,5 +1,5 @@
 <template>
-  <ul class="pagination" id="pageid">
+  <ul class="pagination" id="pageid" v-if="num !== 0">
     <li class="page-item" :class="{ disabled: !hasPage }">
       <a
         class="page-link"
@@ -67,4 +67,23 @@ export default {
 .pagination
   justify-content: center
   margin: 16px 0
+  .page-item
+    &.active
+      .page-link
+        background-color: #D9BD9C
+        border-color: #D9BD9C
+        color: #fff
+    &.disabled
+      .page-link
+        background-color: #f0dec9
+        border-color: #f0dec9
+        color: #A4A6A6
+    .page-link
+      border-color: #f0dec9
+      color: #734230
+      &:hover
+        background-color: #D9BD9C
+        border-color: #D9BD9C
+      &:focus
+        box-shadow: none
 </style>

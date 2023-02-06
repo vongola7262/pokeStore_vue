@@ -1,83 +1,134 @@
 <template>
   <LoadingImg :loadStatus="isLoading"></LoadingImg>
-  <section>
-    <div class="my-5 row justify-content-center">
-      <div class="col-md-6">
-        <div v-if="orderStatus">
-          <h4>訂單編號 {{ orderId }}</h4>
+  <section class="checkDetail">
+    <div class="checkoutBox">
+      <div v-if="orderStatus" class="checkoutList">
+        <h3>訂單編號: {{ orderId }}</h3>
+        <div class="checkoutDetail">
+          <h4>商品資訊</h4>
           <table class="table align-middle">
             <thead>
-              <th>品名</th>
-              <th>數量</th>
-              <th>單價</th>
+              <th>
+                <p>品名</p>
+              </th>
+              <th>
+                <p>數量</p>
+              </th>
+              <th class="text-end">
+                <p>單價</p>
+              </th>
             </thead>
             <tbody>
               <tr v-for="item in order.products" :key="item.id">
-                <td>{{ item.product.title }}</td>
-                <td>{{ item.qty }} / {{ item.product.unit }}</td>
-                <td class="text-end">{{ item.final_total }}</td>
+                <td>
+                  <p>{{ item.product.title }}</p>
+                </td>
+                <td>
+                  <p>{{ item.qty }} / {{ item.product.unit }}</p>
+                </td>
+                <td class="text-end">
+                  <p>NT$ {{ item.final_total }}</p>
+                </td>
               </tr>
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="2" class="text-end">總計</td>
-                <td class="text-end">{{ order.total }}</td>
+                <td colspan="3" class="text-end totalStatus">
+                  <h4>總計:NT$ {{ order.total }}</h4>
+                </td>
               </tr>
             </tfoot>
           </table>
-
+          <h4>訂購人資訊</h4>
           <table class="table">
             <tbody>
               <tr>
-                <th>姓名</th>
-                <td>{{ order.user.name }}</td>
-              </tr>
-              <tr>
-                <th>電話</th>
-                <td>{{ order.user.tel }}</td>
-              </tr>
-              <tr>
-                <th width="100">Email</th>
-                <td>{{ order.user.email }}</td>
-              </tr>
-              <tr>
-                <th>地址</th>
-                <td>{{ order.user.address }}</td>
-              </tr>
-              <tr>
-                <th>收件時段</th>
-                <td v-if="order.user.meetTime ==1 ">8:00 ~ 12:00</td>
-                <td v-else-if="order.user.meetTime ==2 ">13:00 ~ 17:00</td>
-                <td v-else>18:00 ~ 21:00</td>
-              </tr>
-              <tr>
-                <th>備註</th>
-                <td>{{ order.message }}</td>
-              </tr>
-              <tr>
-                <th>付款狀態</th>
+                <th>
+                  <p>姓名</p>
+                </th>
                 <td>
-                  <span v-if="!order.is_paid">尚未付款</span>
-                  <span v-else class="text-success">付款完成</span>
+                  <p>{{ order.user.name }}</p>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <p>電話</p>
+                </th>
+                <td>
+                  <p>{{ order.user.tel }}</p>
+                </td>
+              </tr>
+              <tr>
+                <th width="100">
+                  <p>Email</p>
+                </th>
+                <td>
+                  <p>{{ order.user.email }}</p>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <p>地址</p>
+                </th>
+                <td>
+                  <p>{{ order.user.address }}</p>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <p>收件時段</p>
+                </th>
+                <td v-if="order.user.meetTime ==1 ">
+                  <p>8:00 ~ 12:00</p>
+                </td>
+                <td v-else-if="order.user.meetTime ==2 ">
+                  <p>13:00 ~ 17:00</p>
+                </td>
+                <td v-else>
+                  <p>18:00 ~ 21:00</p>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <p>備註</p>
+                </th>
+                <td>
+                  <p>{{ order.message }}</p>
                 </td>
               </tr>
             </tbody>
           </table>
-          <div class="text-end" v-if="!order.is_paid">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              @click.prevent="payLater"
-            >
-              稍後付款
-            </button>
-            <button
-              type="button"
-              class="btn btn-danger"
-              @click.prevent="payOrder(orderId)"
-            >
-              付款去
-            </button>
+          <div class="text-end payBtn">
+            <div class="backBtn">
+              <div
+                class="backStep"
+                @click.prevent="backList"
+              >
+                <p>返回列表</p>
+              </div>
+            </div>
+            <div class="nextBox">
+              <div class="text-end totalStatus">
+                <h4 v-if="!order.is_paid" class="text-wait">付款狀態: 待付款</h4>
+                <h4 v-else class="text-succ">付款狀態: 已完成</h4>
+              </div>
+              <div class="btngroup" v-if="!order.is_paid">
+                <button
+                  type="button"
+                  class="btn btnWait"
+                  @click.prevent="payLater"
+                >
+                  <p>繼續購物</p>
+                </button>
+                <button
+                  type="button"
+                  class="btn btnPay"
+                  @click.prevent="payOrder(orderId)"
+                >
+                  <p>付款去</p>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -127,6 +178,10 @@ export default {
     },
     // 稍後付款
     payLater () {
+      this.$router.push({ path: '/typeList/all' })
+    },
+    // 返回
+    backList () {
       this.$router.push({ name: 'orderlist' })
     }
   },
@@ -137,3 +192,65 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+section.checkDetail
+  padding: 60px 0
+  background-color: #f0dec9
+.checkoutBox
+  width: 80%
+  max-width: 800px
+  margin: 0 auto
+  background-color: #fff
+  overflow: hidden
+  border-radius: 20px
+  border: 1px solid #D9BD9C
+  box-shadow: 8px 8px 14px #734230
+  .checkoutList
+    padding: 40px 20px
+    h3
+      padding-bottom: 40px
+      text-align: center
+      color: #734230
+      margin: 0
+      border-bottom: 2px solid #D9BD9C
+    .checkoutDetail
+      width: 90%
+      margin: 0 auto
+      h4
+        margin: 15px 0
+        color: #734230
+        &.text-wait
+          color: #F24141
+        &.text-succ
+          color: #81A69B
+      table.table
+        margin-bottom: 0
+        thead
+          th
+            padding: 0.5rem
+            p
+              padding: 0
+        tfoot
+          td.totalStatus
+            border: none
+      .payBtn
+        padding: 0.5rem
+        display: flex
+        justify-content: space-between
+        align-items: flex-end
+        width: 100%
+        .backBtn
+          width: 20%
+        button
+          margin-left:10px
+          color: #fff
+          &.btnPay
+            background-color: #81A69B
+            &:hover
+              background-color: #3DC5BA
+          &.btnWait
+            background-color: #F24141
+            &:hover
+              background-color: #BF0426
+</style>

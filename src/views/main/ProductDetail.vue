@@ -1,32 +1,49 @@
 <template>
   <LoadingImg :loadStatus="isLoading"></LoadingImg>
   <section class="mainProduct">
-    <!-- {{ product }} -->
-    {{ product }}
-    <button
-      type="button"
-      class="btn btn-primary"
-      @click.prevent="addCart()"
-    >
-      加入購物車
-    </button>
-    <div class="numberList">
-      <button
-        type="button"
-        class="btn btn-primary"
-        @click.prevent="qtyUpdate(true)"
-      >
-        <h5>+</h5>
-      </button>
-      <h5>{{ product_qty }}</h5>
-      <button
-        type="button"
-        class="btn btn-primary"
-        v-bind="{disabled: product_qty <= 1}"
-        @click.prevent="qtyUpdate(false)"
-      >
-        <h5>-</h5>
-      </button>
+    <div class="container">
+      <div class="row" v-if="product !== null">
+        <div class="col-md-7">
+          <div class="imgBox">
+            <img :src="product.imageUrl" alt="product.title">
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="detailBox">
+            <h4>{{ product.title }}</h4>
+            <p>{{ product.content }}</p>
+            <h6>原價{{ product.origin_price }}</h6>
+            <h4>特價{{ product.price }}</h4>
+          </div>
+          <div class="addBox">
+            <div class="numberList">
+              <button
+                type="button"
+                class="btn btn-primary"
+                @click.prevent="qtyUpdate(true)"
+              >
+                <h5>+</h5>
+              </button>
+              <h5>{{ product_qty }}</h5>
+              <button
+                type="button"
+                class="btn btn-primary"
+                v-bind="{disabled: product_qty <= 1}"
+                @click.prevent="qtyUpdate(false)"
+              >
+                <h5>-</h5>
+              </button>
+            </div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="addCart()"
+            >
+              加入購物車
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -85,3 +102,18 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+section.mainProduct
+  padding: 60px 0
+  .imgBox
+    width: 100%
+    position: relative
+    overflow: hidden
+    img
+      width: 100%
+  .addBox
+    display: flex
+    .numberList
+      display: flex
+</style>

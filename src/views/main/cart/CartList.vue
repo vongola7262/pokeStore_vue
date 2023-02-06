@@ -1,41 +1,76 @@
 <template>
   <LoadingImg :loadStatus="isLoading"></LoadingImg>
   <section class="mainCartList">
-    <ul class="list-group">
-      <li class="list-group-item" v-for="item in cartList" :key="item.id">
-        <p>{{ item.product.title }}</p>
-        <input
-          type="number"
-          name="itemQty"
-          id="itemQty"
-          v-model="item.qty"
-          min="1"
-          @change.prevent="updateCart(item)"
-        />
-        <p v-if="item.coupon">
-          優惠價 {{ item.final_total }}(折扣{{ item.coupon.percent }}%)
-        </p>
-        <p v-else>特價 {{ item.final_total }}</p>
-        <button type="button" @click.prevent="removeItem(item.id)">
-          <p>刪除</p>
-        </button>
-      </li>
-    </ul>
-    <button type="button" @click.prevent="cleanAll">
-      <p>全部清空</p>
-    </button>
-    <div class="inputCode">
-      <input type="text" placeholder="輸入優惠碼" v-model="Code" />
-      <button type="button" @click.prevent="enterCode">
-        <p>套用</p>
-      </button>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <ul class="list-group">
+            <li class="list-group-item"
+              v-for="item in cartList"
+              :key="item.id"
+            >
+              <div class="col-md-4">
+                <div class="imgBox">
+                  <img :src="item.product.imageUrl" :alt="item.product.title">
+                </div>
+              </div>
+              <div class="col-md-8">
+                <h4>{{ item.product.title }}</h4>
+                <input
+                  type="number"
+                  name="itemQty"
+                  id="itemQty"
+                  v-model="item.qty"
+                  min="1"
+                  @change.prevent="updateCart(item)"
+                />
+                <p v-if="item.coupon">
+                  優惠價 {{ item.final_total }}(折扣{{ item.coupon.percent }}%)
+                </p>
+                <p v-else>特價 {{ item.final_total }}</p>
+                <button
+                  type="button"
+                  @click.prevent="removeItem(item.id)"
+                >
+                  <p>刪除</p>
+                </button>
+              </div>
+            </li>
+          </ul>
+          <div class="cleanBtnn">
+            <button
+              type="button"
+              @click.prevent="cleanAll"
+            >
+              <p>全部清空</p>
+            </button>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h5>購物車資訊</h5>
+          <div class="inputCode">
+            <input
+              type="text"
+              placeholder="輸入優惠碼"
+              v-model="Code"
+            />
+            <button
+              type="button"
+              @click.prevent="enterCode"
+            >
+              <p>套用</p>
+            </button>
+          </div>
+          <p>金額小計 {{ total }}</p>
+          <p>折價 {{ total - final_total }}</p>
+          <p>運費 0</p>
+          <p>總計 {{ final_total }}</p>
+          <a href="#" @click.prevent="nextStep()">
+            <p>結帳</p>
+          </a>
+        </div>
+      </div>
     </div>
-    <p>原價 {{ total }}</p>
-    <p>折價 {{ total - final_total }}</p>
-    <p>總金額 {{ final_total }}</p>
-    <a href="#" @click.prevent="nextStep()">
-      <p>下一步</p>
-    </a>
   </section>
 </template>
 
@@ -117,3 +152,13 @@ export default {
   }
 }
 </script>
+<style lang="sass">
+  section.mainCartList
+    padding: 60px 0
+  .list-group-item
+    display: flex
+  .imgBox
+    width: 100%
+    img
+      width: 100%
+</style>

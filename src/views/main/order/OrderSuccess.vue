@@ -1,14 +1,20 @@
 <template>
   <section class="formSuccess">
     <div class="mainBox">
-      <div class="mainText animate__animated animate__fadeIn animate__slower">
+      <div
+        class="mainText
+        animate__animated
+        animate__fadeIn
+        animate__slower"
+      >
         <h2>購買成功</h2>
       </div>
-      <p>有任何疑問歡迎與我們
+      <div class="succDetail">
+        <p>有任何疑問歡</p>
         <router-link :to="{ name: 'form' }">
-          <p>聯繫</p>
+          <p>聯絡我們</p>
         </router-link>
-      </p>
+      </div>
       <router-link :to="{ name: 'index' }" class="nextBtn">
         <h5>回到首頁</h5>
       </router-link>
@@ -61,4 +67,10 @@ section.formSuccess
             background-color: #734230
             h5
                 color: #f0dec9
+        .succDetail
+          display: flex
+          justify-content: center
+          a
+            color: #734230
+            text-decoration: none
 </style>

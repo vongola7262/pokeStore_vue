@@ -1,139 +1,122 @@
 <template>
   <section class="mainForm">
-    <Form @submit="onS">
-      <div class="titleBox">
-        <h2>請留下聯絡資訊</h2>
-        <h4>我們將盡快回覆</h4>
-      </div>
-      <div class="formMain">
-        <div class="inputGroup nameGroup">
-          <div class="textBox">
-            <label for="userName">
-              <h5>姓名</h5>
-            </label>
-            <ErrorMessage name="userName" />
-          </div>
-          <Field
-            type="text"
-            name="userName"
-            id="userName"
-            placeholder="請輸入姓名"
-            autocomplete="off"
-            :rules="{ required: true }"
-            v-model="userName"
-          />
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+          <h2>聯絡我們</h2>
+          <ul class="contactList">
+            <li>
+              <h5>電話:</h5>
+              <a href="tel:0265656556">
+                <h6>+ 0265656556</h6>
+              </a>
+            </li>
+            <li>
+              <h5>Email:</h5>
+              <a href="mailto:pokemoneStore@gmail.com">
+                <h6>pokemoneStore@gmail.com</h6>
+              </a>
+            </li>
+            <li>
+              <h5>服務時間:</h5>
+              <h6>8:00 ~ 17:00</h6>
+            </li>
+            <li>
+              <h5>官方帳號:</h5>
+              <ul class="linkGruop">
+                <li v-for="item in iconList" :key="item.title">
+                  <a :href="item.link" class="imgBox" target="_bank">
+                    <img :src="item.img" :alt="item.title">
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
-        <div class="group">
-          <div class="inputGroup">
-            <div class="textBox">
-              <label for="userPhone">
-                <h5>電話</h5>
-              </label>
-              <ErrorMessage name="userPhone" />
+        <div class="col-md-5">
+          <Form @submit="onS">
+            <div class="formMain">
+              <div class="inputGroup nameGroup">
+                <div class="textBox">
+                  <label for="userName">
+                    <h5>姓名</h5>
+                  </label>
+                  <ErrorMessage name="userName" />
+                </div>
+                <Field
+                  type="text"
+                  name="userName"
+                  id="userName"
+                  placeholder="請輸入姓名"
+                  autocomplete="off"
+                  :rules="{ required: true }"
+                  v-model="userName"
+                />
+              </div>
+              <div class="group">
+                <div class="inputGroup">
+                  <div class="textBox">
+                    <label for="userPhone">
+                      <h5>電話</h5>
+                    </label>
+                    <ErrorMessage name="userPhone" />
+                  </div>
+                  <Field
+                    type="tel"
+                    name="userPhone"
+                    id="userPhone"
+                    placeholder="請輸入電話"
+                    autocomplete="off"
+                    :rules="{ required: true, numeric: true, length: 10 }"
+                    v-model="userPhone"
+                  />
+                </div>
+                <div class="inputGroup">
+                  <div class="textBox">
+                    <label for="userEmail">
+                      <h5>Email</h5>
+                    </label>
+                    <ErrorMessage name="userEmail" />
+                  </div>
+                  <Field
+                    type="email"
+                    name="userEmail"
+                    id="userEmail"
+                    placeholder="請輸入Email"
+                    autocomplete="off"
+                    :rules="{ email: true, required: true }"
+                    v-model="userEmail"
+                  />
+                </div>
+              </div>
+              <div class="inputGroup">
+                <div class="textBox">
+                  <label for="userText">
+                    <h5>留言給我們</h5>
+                  </label>
+                  <ErrorMessage name="userText" />
+                </div>
+                <Field
+                  as="textarea"
+                  rows="4"
+                  type="text"
+                  name="userText"
+                  id="userText"
+                  v-model="userText"
+                  autocomplete="off"
+                  :rules="{ required: true }"
+                />
+              </div>
             </div>
-            <Field
-              type="tel"
-              name="userPhone"
-              id="userPhone"
-              placeholder="請輸入電話"
-              autocomplete="off"
-              :rules="{ required: true, numeric: true, length: 10 }"
-              v-model="userPhone"
-            />
-          </div>
-          <div class="inputGroup">
-            <div class="textBox">
-              <label for="userEmail">
-                <h5>Email</h5>
-              </label>
-              <ErrorMessage name="userEmail" />
+            <div class="buttonBox">
+              <button type="submit" class="nextBtn">
+                <h5>送出</h5>
+              </button>
             </div>
-            <Field
-              type="email"
-              name="userEmail"
-              id="userEmail"
-              placeholder="請輸入Email"
-              autocomplete="off"
-              :rules="{ email: true, required: true }"
-              v-model="userEmail"
-            />
-          </div>
-        </div>
-        <div class="inputGroup">
-          <div class="textBox">
-            <h5>方便連絡的時段</h5>
-            <ErrorMessage name="meetTime" />
-          </div>
-          <div class="timeList">
-            <div class="radiolist">
-              <Field
-                type="radio"
-                name="meetTime"
-                id="morning"
-                value="morning"
-                v-model="meetTime"
-                class="radioBox"
-                :rules="{ required: true }"
-              />
-              <label for="1">
-                <h6>8:00 ~ 12:00</h6>
-              </label>
-            </div>
-            <div class="radiolist">
-              <Field
-                type="radio"
-                name="meetTime"
-                id="night"
-                value="2"
-                v-model="meetTime"
-                class="radioBox"
-                :rules="{ required: true }"
-              />
-              <label for="night">
-                <h6>13:00 ~ 17:00</h6>
-              </label>
-            </div>
-            <div class="radiolist">
-              <Field
-                type="radio"
-                name="meetTime"
-                id="else"
-                value="3"
-                v-model="meetTime"
-                class="radioBox"
-                :rules="{ required: true }"
-              />
-              <label for="else">
-                <h6>18:00 ~ 21:00</h6>
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="inputGroup">
-          <div class="textBox">
-            <label for="userText">
-              <h5>留言給我們</h5>
-            </label>
-            <ErrorMessage name="userText" />
-          </div>
-          <Field
-            as="textarea"
-            rows="4"
-            type="text"
-            name="userText"
-            id="userText"
-            v-model="userText"
-            autocomplete="off"
-            :rules="{ required: true }"
-          />
+          </Form>
         </div>
       </div>
-      <div class="buttonBox">
-        <button type="submit" class="nextBtn">
-          <h5>送出</h5>
-        </button>
-      </div>
-    </Form>
+    </div>
   </section>
 </template>
 
@@ -160,7 +143,6 @@ configure({
       userName: '姓名',
       userPhone: '電話',
       userEmail: 'Email',
-      meetTime: '時段',
       userText: '想說的話'
     }
   })
@@ -178,7 +160,24 @@ export default {
       userPhone: null,
       userEmail: null,
       userText: null,
-      meetTime: null
+      meetTime: null,
+      iconList: [
+        {
+          title: 'facebook',
+          img: './assets/images/icon/facebook.png',
+          link: 'https://www.facebook.com/Pokemon.Official.Taiwan/'
+        },
+        {
+          title: 'tiktok',
+          img: './assets/images/icon/tiktok.png',
+          link: '#'
+        },
+        {
+          title: 'youtube',
+          img: './assets/images/icon/youtube.png',
+          link: 'https://www.youtube.com/channel/UCUsB9KTwSGgPlIARzdaKb_Q'
+        }
+      ]
     }
   },
   methods: {
@@ -192,11 +191,41 @@ export default {
 <style lang="sass">
 section.mainForm
   background-color: #f0dec9
-  padding: 60px 0
+  padding: 100px 0
+  h2
+    color: #734230
+    font-size: 42px
+    margin-bottom: 30px
+  .contactList
+    list-style: none
+    padding: 0
+    margin: 0
+    li
+      margin-bottom: 30px
+      width: 50%
+      a
+        text-decoration: none
+      h5
+        font-weight: 700
+        margin-bottom: 10px
+      h5,h6
+        color: #734230
+  .linkGruop
+    list-style-type: none
+    padding: 0
+    margin: 0
+    display: flex
+    li
+      margin-right: 20px
+      width: auto
+      a
+        display: block
+        cursor: pointer
+        width: 40px
+        img
+          width: 100%
   form
-    width: 80%
     max-width: 800px
-    margin: 0 auto
     padding: 28px 20px
     border-radius: 8px
     background-color: #fff
@@ -233,7 +262,7 @@ section.mainForm
       display: flex
       flex-direction: column
       padding: 0px 8px 8px 8px
-      margin-bottom: 30px
+      margin-bottom: 20px
       h5
         color: #734230
         letter-spacing: 1px
@@ -260,18 +289,14 @@ section.mainForm
         font-size: 18px
         color: #3C4959
         opacity: 0.9
-        @media screen and (max-width:991px)
-          letter-spacing: 1px
-        @media screen and (max-width:767px)
-          margin-bottom: 15px
+        margin-bottom: 15px
       .radiolist
         input
           margin-right: 10px
         &:last-child
           label
             h6
-              @media screen and (max-width:767px)
-                margin-bottom: 0
+              margin-bottom: 0
       .textBox
         display: flex
         align-items: flex-end
@@ -320,20 +345,15 @@ section.mainForm
         width: 100%
     .group,.timeList
       display: flex
+      flex-direction: column
       .inputGroup,.radiolist
         flex: 1
-    .group
-      @media screen and (max-width:991px)
-        flex-direction: column
-    .timeList
-      @media screen and (max-width:767px)
-        flex-direction: column
     .buttonBox
       display: flex
       justify-content: center
-      margin: 50px 8px 0 8px
+      margin: 30px 8px 0 8px
       border-top: 2px solid #734230
-      padding: 50px 0 22px 0
+      padding: 30px 0 12px 0
       .nextBtn
         border-radius: 8px
         height: 60px
