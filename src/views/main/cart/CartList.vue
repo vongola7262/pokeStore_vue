@@ -47,11 +47,11 @@
                   <div class="unitBox">
                     <button
                       type="button"
-                      class="btn add"
-                      v-bind="{disabled: btnStatus }"
-                      @click.prevent="updateCart(item, true)"
+                      class="btn remove"
+                      v-bind="{disabled: item.qty <= 1 || btnStatus}"
+                      @click.prevent="updateCart(item, false)"
                     >
-                      <p>+</p>
+                      <p>-</p>
                     </button>
                     <div class="unitText">
                       <p>
@@ -60,11 +60,11 @@
                     </div>
                     <button
                       type="button"
-                      class="btn remove"
-                      v-bind="{disabled: item.qty <= 1 || btnStatus}"
-                      @click.prevent="updateCart(item, false)"
+                      class="btn add"
+                      v-bind="{disabled: btnStatus }"
+                      @click.prevent="updateCart(item, true)"
                     >
-                      <p>-</p>
+                      <p>+</p>
                     </button>
                   </div>
                 </div>
@@ -326,9 +326,9 @@ export default {
           background-color: #D9BD9C
           padding: 4px 6px
           &.add
-            border-radius: 5px 0 0 5px
-          &.remove
             border-radius: 0 5px 5px 0
+          &.remove
+            border-radius: 5px 0 0 5px
           &:active
             border-color: #D9BD9C
           &:disabled
