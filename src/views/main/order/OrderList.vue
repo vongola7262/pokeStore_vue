@@ -2,33 +2,35 @@
   <LoadingImg :loadStatus="isLoading"></LoadingImg>
   <section class="orderList">
     <div class="container-md">
-      <div class="input-group">
+      <div class="input-textBox">
         <label for="inputNum">
           <h5>快速搜尋</h5>
         </label>
-        <input
-          type="text"
-          class="form-control"
-          placeholder="請輸入訂單編號"
-          id="inputNum"
-          v-model="keyword"
-        >
-        <button
-          class="btn btn-search"
-          type="button"
-          @click.prevent="keyWordSearch(true)"
-        >
-          <p>搜尋</p>
-        </button>
-        <button
-          type="button"
-          class="btn btn-clean"
-          @click.prevent="keyWordSearch(false)"
-        >
-          <p>清除</p>
-        </button>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="請輸入訂單編號"
+            id="inputNum"
+            v-model="keyword"
+          >
+          <button
+            class="btn btn-search"
+            type="button"
+            @click.prevent="keyWordSearch(true)"
+          >
+            <p>搜尋</p>
+          </button>
+          <button
+            type="button"
+            class="btn btn-clean"
+            @click.prevent="keyWordSearch(false)"
+          >
+            <p>清除</p>
+          </button>
+        </div>
       </div>
-      <div class="listBox">
+      <div class="listBox table-responsive-md">
         <table class="table align-middle">
           <thead>
             <th></th>
@@ -202,27 +204,37 @@ export default {
 <style lang="sass">
 section.orderList
   padding: 40px 0
-  .input-group
+  .input-textBox
     max-width: 600px
     display: flex
     align-items: center
     margin: 0 auto 40px auto
+    @media screen and (max-width:767px)
+      flex-direction: column
+      align-items: flex-start
     label
       margin-right: 10px
+      width: 120px
+      text-align: right
+      @media screen and (max-width:767px)
+        text-align: left
+        margin-bottom: 10px
       h5
         color: #734230
-    input
-      border-color: #f0dec9
-    input:focus
-      box-shadow: none
-      border-color: none
-    button
-      &.btn-search
-        background-color: #D9BD9C
-      &.btn-clean
-        background-color: #f0dec9
-      p
-        letter-spacing: 4px
+    .input-group
+      display: flex
+      input
+        border-color: #f0dec9
+      input:focus
+        box-shadow: none
+        border-color: none
+      button
+        &.btn-search
+          background-color: #D9BD9C
+        &.btn-clean
+          background-color: #f0dec9
+        p
+          letter-spacing: 4px
   .listBox
     border-top: 2px solid #D9BD9C
     padding: 12px 0
@@ -230,6 +242,8 @@ section.orderList
     .totalPrice
       @media screen and (max-width:767px)
         display: none
+    table
+      min-width: 600px
     thead
       th
         padding: 8px
