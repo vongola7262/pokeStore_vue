@@ -10,7 +10,7 @@
         <h2>購買成功</h2>
       </div>
       <div class="succDetail">
-        <p>有任何疑問歡</p>
+        <p>有任何疑問歡迎</p>
         <router-link :to="{ name: 'form' }">
           <p>聯絡我們</p>
         </router-link>
@@ -30,6 +30,7 @@ section.formSuccess
     display: flex
     justify-content: center
     align-items: center
+    overflow: hidden
     .mainBox
         text-align: center
         h2,p
@@ -39,6 +40,8 @@ section.formSuccess
           color: #734230
           letter-spacing: 10px
           position: relative
+          @media screen and (max-width:575px)
+            font-size: 36px
           &::before,&::after
             content: ''
             display: block
@@ -51,14 +54,25 @@ section.formSuccess
             position: absolute
             top: 50%
             transform: translateY(-20%)
+            @media screen and (max-width:575px)
+              width: 30px
+              height: 30px
           &::before
             left: -80px
+            @media screen and (max-width:575px)
+              left: -40px
           &::after
             right: -80px
+            @media screen and (max-width:575px)
+              right: -40px
         p
           margin-top: 20px
           margin-bottom: 60px
           font-size: 24px
+          @media screen and (max-width:575px)
+            font-size: 18px
+            margin-bottom: 40px
+            margin-top: 0
         h5
           font-size: 24px
         .nextBtn

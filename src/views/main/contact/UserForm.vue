@@ -2,38 +2,40 @@
   <section class="mainForm">
     <div class="container">
       <div class="row">
-        <div class="col-md-7">
-          <h2>聯絡我們</h2>
-          <ul class="contactList">
-            <li>
-              <h5>電話:</h5>
-              <a href="tel:0265656556">
-                <h6>+ 0265656556</h6>
-              </a>
-            </li>
-            <li>
-              <h5>Email:</h5>
-              <a href="mailto:pokemoneStore@gmail.com">
-                <h6>pokemoneStore@gmail.com</h6>
-              </a>
-            </li>
-            <li>
-              <h5>服務時間:</h5>
-              <h6>8:00 ~ 17:00</h6>
-            </li>
-            <li>
-              <h5>官方帳號:</h5>
-              <ul class="linkGruop">
-                <li v-for="item in iconList" :key="item.title">
-                  <a :href="item.link" class="imgBox" target="_bank">
-                    <img :src="item.img" :alt="item.title">
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
+        <div class="col-lg-7 col-md-5 contactlayout">
+          <div class="contactBox">
+            <h2>聯絡我們</h2>
+            <ul class="contactList">
+              <li>
+                <h5>電話:</h5>
+                <a href="tel:0265656556">
+                  <h6>+ 0265656556</h6>
+                </a>
+              </li>
+              <li>
+                <h5>Email:</h5>
+                <a href="mailto:pokeStore@gmail.com">
+                  <h6>pokeStore@gmail.com</h6>
+                </a>
+              </li>
+              <li>
+                <h5>服務時間:</h5>
+                <h6>8:00 ~ 17:00</h6>
+              </li>
+              <li>
+                <h5>官方帳號:</h5>
+                <ul class="linkGruop">
+                  <li v-for="item in iconList" :key="item.title">
+                    <a :href="item.link" class="imgBox" target="_bank">
+                      <img :src="item.img" :alt="item.title">
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-lg-5 col-md-7">
           <Form @submit="onS">
             <div class="formMain">
               <div class="inputGroup nameGroup">
@@ -191,7 +193,16 @@ export default {
 <style lang="sass">
 section.mainForm
   background-color: #f0dec9
-  padding: 100px 0
+  padding: 80px 0
+  .contactlayout
+    display: flex
+    justify-content: center
+    align-items: center
+    @media screen and (max-width:767px)
+      justify-content: flex-start
+    @media screen and (max-width:575px)
+      width: 90%
+      margin: 0 auto
   h2
     color: #734230
     font-size: 42px
@@ -200,9 +211,18 @@ section.mainForm
     list-style: none
     padding: 0
     margin: 0
+    @media screen and (max-width:767px)
+      display: flex
+      flex-wrap: wrap
+    @media screen and (max-width:575px)
+      flex-direction: column
+      flex-wrap: nowrap
     li
       margin-bottom: 30px
-      width: 50%
+      @media screen and (max-width:767px)
+        width: 50%
+      @media screen and (max-width:575px)
+        width: 100%
       a
         text-decoration: none
       h5
@@ -234,6 +254,7 @@ section.mainForm
     overflow: hidden
     @media screen and (max-width:575px)
       width: 90%
+      margin: 0 auto
     &::before,&::after
       content: ''
       display: block
