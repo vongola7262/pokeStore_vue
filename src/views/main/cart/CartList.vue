@@ -28,10 +28,10 @@
                   <h6>{{ item.product.title }}</h6>
                   <div v-if="item.coupon" class="finalPrice">
                     <h5>
-                      優惠價 : {{ item.final_total }} <span>({{ item.coupon.percent }}%)</span>
+                      優惠價 : {{ item.final_total }}
                     </h5>
                     <p class="orginPrice">
-                      原價 : {{ item.total}}
+                      促銷折扣 : {{ item.total }} {{ item.final_total - item.total }}
                     </p>
                   </div>
                   <div v-else class="finalPrice">
@@ -55,7 +55,7 @@
                     </button>
                     <div class="unitText">
                       <p>
-                        {{ item.qty }} {{ item.product.unit }}
+                        {{ item.qty }}
                       </p>
                     </div>
                     <button
@@ -130,7 +130,7 @@
               <tfoot>
                 <tr>
                   <td colspan="2" class="text-end">
-                    <h4>總計 NT$ :{{ final_total }}</h4>
+                    <h4>總計: NT${{ final_total }}</h4>
                   </td>
                 </tr>
               </tfoot>
@@ -358,6 +358,7 @@ export default {
           @media screen and (max-width:767px)
             display: none
         p
+          color: #F24141
           @media screen and (max-width:575px)
             display: none
       .removeBtn

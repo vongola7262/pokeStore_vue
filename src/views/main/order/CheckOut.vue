@@ -34,7 +34,7 @@
             <tfoot>
               <tr>
                 <td colspan="3" class="text-end totalStatus">
-                  <h4>總計:NT$ {{ order.total }}</h4>
+                  <h4>總計: NT${{ order.total }}</h4>
                 </td>
               </tr>
             </tfoot>
