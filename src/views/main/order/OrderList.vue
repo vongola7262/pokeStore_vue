@@ -31,7 +31,10 @@
         </div>
       </div>
       <div class="listBox table-responsive-md">
-        <table class="table align-middle">
+        <table
+          class="table align-middle"
+          :class="{ more: pageDetail.length != 0 }"
+        >
           <thead>
             <th></th>
             <th>
@@ -243,7 +246,8 @@ section.orderList
       @media screen and (max-width:767px)
         display: none
     table
-      min-width: 600px
+      &.more
+        min-width: 600px
     thead
       th
         padding: 8px

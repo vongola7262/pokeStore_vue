@@ -30,9 +30,9 @@
                     <h5>
                       優惠價 : {{ item.final_total }}
                     </h5>
-                    <p class="orginPrice">
-                      促銷折扣 : {{ item.total }} {{ item.final_total - item.total }}
-                    </p>
+                    <div class="orginPrice">
+                      <p>原價 : {{ item.total }}</p>
+                    </div>
                   </div>
                   <div v-else class="finalPrice">
                     <h5>
@@ -86,6 +86,11 @@
             <div class="titleBox">
               <h3>購物車資訊</h3>
               <div class="inputCode input-group">
+                <p v-if="enterCodeStatus !== ''"
+                  class="errorCode"
+                >
+                  {{ enterCodeStatus }}
+                </p>
                 <input
                   type="text"
                   placeholder="輸入優惠碼"
@@ -138,8 +143,15 @@
             <div class="nextStepBox">
               <button
                 type="button"
-                class="btn"
-                @click.prevent="nextStep()"
+                class="btn shop"
+                @click.prevent="viewMore"
+              >
+                <p>繼續購物</p>
+              </button>
+              <button
+                type="button"
+                class="btn nextStep"
+                @click.prevent="nextStep"
               >
                 <p>下一步</p>
               </button>
@@ -165,7 +177,8 @@ export default {
       final_total: null,
       Code: null,
       isLoading: false,
-      btnStatus: false
+      btnStatus: false,
+      enterCodeStatus: ''
     }
   },
   methods: {
@@ -195,7 +208,6 @@ export default {
       }
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`
       this.axios.put(api, { data: cartItem }).then((res) => {
-        console.log(res)
         this.btnStatus = false
         this.getCartList()
       })
@@ -204,7 +216,6 @@ export default {
     removeItem (id) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`
       this.axios.delete(api).then((res) => {
-        console.log(res)
         this.getCartList()
       })
     },
@@ -212,7 +223,6 @@ export default {
     cleanAll () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/carts`
       this.axios.delete(api).then((res) => {
-        console.log(res)
         this.getCartList()
       })
     },
@@ -223,8 +233,13 @@ export default {
         code: this.Code
       }
       this.axios.post(api, { data: code }).then((res) => {
-        console.log(res)
-        this.getCartList()
+        if (res.data.success === true) {
+          this.getCartList()
+          this.enterCodeStatus = ''
+        } else {
+          this.enterCodeStatus = res.data.message
+          this.Code = null
+        }
       })
     },
     // 結帳
@@ -312,7 +327,6 @@ export default {
       flex: 2
       display: flex
       flex-direction: column
-      justify-content: center
       position: relative
       @media screen and (max-width:767px)
         flex: 3
@@ -357,8 +371,21 @@ export default {
         span
           @media screen and (max-width:767px)
             display: none
-        p
-          color: #F24141
+        .orginPrice
+          display: flex
+          p
+            color: #d5c6b4
+            position: relative
+            &::before
+              content: ''
+              display: block
+              width: 100%
+              height: 1px
+              background-color: #d5c6b4
+              position: absolute
+              left: 0
+              top: 60%
+              transform: translateY(-50%)
           @media screen and (max-width:575px)
             display: none
       .removeBtn
@@ -400,12 +427,19 @@ export default {
       padding-bottom: 20px
       h3
         color: #734230
-        margin-bottom: 20px
+        margin: 0
       .inputCode
+        padding-top: 20px
+        position: relative
         @media screen and (max-width:991px)
           flex-direction: column
         @media screen and (max-width:767px)
           flex-direction: row
+        p.errorCode
+          position: absolute
+          top: 0
+          left: 0
+          color: #F24141
         input
           flex: 3
           border-style: none
@@ -423,7 +457,7 @@ export default {
             margin-left: 0
           @media screen and (max-width:767px)
             width: auto
-            margin-left: -1
+            margin-left: -1px
             border-radius: 0 8px 8px 0
           &:hover
             background-color: #d5aa78
@@ -441,9 +475,17 @@ export default {
     justify-content: flex-end
     padding: 0.5rem
     button
-      background-color: #81A69B
-      p
-        color: #fff
-      &:hover
-        background-color: #3DC5BA
+      &.nextStep
+        background-color: #81A69B
+        p
+          color: #fff
+        &:hover
+          background-color: #3DC5BA
+      &.shop
+        background-color: #D9BD9C
+        margin-right: 20px
+        p
+          color: #734230
+        &:hover
+          background-color: #d5aa78
 </style>

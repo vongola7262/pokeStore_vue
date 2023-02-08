@@ -81,7 +81,7 @@
       >
         <div class="timeText">
           <h2>2023新年折扣碼</h2>
-          <p>即日起到 1/31 輸入優惠碼享 8 折優惠！</p>
+          <p>即日起到 3/31 輸入優惠碼享 8 折優惠！</p>
         </div>
         <div class="codeText">
           <h3>Pokemon23</h3>

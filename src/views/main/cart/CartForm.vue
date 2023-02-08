@@ -208,7 +208,6 @@ export default {
         message: this.messages
       }
       this.axios.post(api, { data: form }).then(res => {
-        console.log(res.data)
         const id = res.data.orderId
         if (res.data.success === true) {
           this.$router.push(`/order/checkout/${id}`)
@@ -225,6 +224,9 @@ export default {
 section.mainForm
   background-color: #f0dec9
   padding: 80px 0
+  overflow: hidden
+  @media screen and (max-width:575px)
+    padding: 40px 0
   form
     width: 80%
     max-width: 800px
@@ -234,6 +236,8 @@ section.mainForm
     background-color: #fff
     box-shadow:  8px 8px 14px #734230
     position: relative
+    @media screen and (max-width:575px)
+      width: 90%
     &::before,&::after
       content: ''
       display: block
@@ -256,6 +260,8 @@ section.mainForm
       transform: rotate(60deg)
     .nameGroup
       max-width: 50%
+      @media screen and (max-width:575px)
+        max-width: 100%
     .inputGroup
       display: flex
       flex-direction: column
@@ -287,9 +293,16 @@ section.mainForm
         font-size: 18px
         color: #3C4959
         opacity: 0.9
+        @media screen and (max-width:991px)
+          margin-bottom: 15px
       .radiolist
         input
           margin-right: 10px
+        @media screen and (max-width:991px)
+          &:last-child
+            label
+              h6
+                margin-bottom: 0
       .textBox
         display: flex
         align-items: flex-end
@@ -330,10 +343,14 @@ section.mainForm
     .formMain
       width: 90%
       margin: 0 auto
+      @media screen and (max-width:575px)
+        width: 100%
     .group,.timeList
       display: flex
       .inputGroup,.radiolist
         flex: 1
+      @media screen and (max-width:991px)
+        flex-direction: column
     .buttonBox
       display: flex
       justify-content: center

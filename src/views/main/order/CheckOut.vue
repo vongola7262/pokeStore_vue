@@ -24,7 +24,7 @@
                   <p>{{ item.product.title }}</p>
                 </td>
                 <td>
-                  <p>{{ item.qty }} / {{ item.product.unit }}</p>
+                  <p>{{ item.qty }} {{ item.product.unit }}</p>
                 </td>
                 <td class="text-end">
                   <p>NT$ {{ item.final_total }}</p>
@@ -197,6 +197,8 @@ export default {
 section.checkDetail
   padding: 60px 0
   background-color: #f0dec9
+  @media screen and (max-width:575px)
+    padding: 40px 0
 .checkoutBox
   width: 80%
   max-width: 800px
@@ -206,17 +208,31 @@ section.checkDetail
   border-radius: 20px
   border: 1px solid #D9BD9C
   box-shadow: 8px 8px 14px #734230
+  @media screen and (max-width:575px)
+    width: 90%
+  @media screen and (max-width:339px)
+    width: 95%
   .checkoutList
     padding: 40px 20px
+    @media screen and (max-width:575px)
+      padding: 20px 10px
     h3
       padding-bottom: 40px
       text-align: center
       color: #734230
       margin: 0
       border-bottom: 2px solid #D9BD9C
+      word-wrap: break-word
+      @media screen and (max-width:575px)
+        font-size: 22px
+        letter-spacing: 2px
+        padding-bottom: 20px
+        line-height: 1.5
     .checkoutDetail
       width: 90%
       margin: 0 auto
+      @media screen and (max-width:575px)
+        width: 100%
       h4
         margin: 15px 0
         color: #734230
@@ -240,17 +256,28 @@ section.checkDetail
         justify-content: space-between
         align-items: flex-end
         width: 100%
+        @media screen and (max-width:575px)
+          flex-direction: column
         .backBtn
           width: 20%
+          min-width: 120px
+          @media screen and (max-width:575px)
+            display: flex
+            order: 2
+            width: 100%
+            margin-top: 15px
         button
           margin-left:10px
-          color: #fff
           &.btnPay
+            color: #fff
             background-color: #81A69B
             &:hover
               background-color: #3DC5BA
           &.btnWait
-            background-color: #F24141
+            background-color: #D9BD9C
+            color: #734230
             &:hover
-              background-color: #BF0426
+              background-color: #d5aa78
+          @media screen and (max-width:575px)
+            order: 1
 </style>

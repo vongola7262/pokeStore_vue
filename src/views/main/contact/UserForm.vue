@@ -255,6 +255,8 @@ section.mainForm
     @media screen and (max-width:575px)
       width: 90%
       margin: 0 auto
+    @media screen and (max-width:339px)
+      width: 100%
     &::before,&::after
       content: ''
       display: block
