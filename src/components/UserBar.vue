@@ -14,7 +14,7 @@
           :class="{ close: !phoneStatus && !loadFirst ,open: phoneStatus && !loadFirst}"
         >
           <ul class="navbar-nav mb-lg-0">
-            <li v-for="(item, index) in pageList" :key="index">
+            <li v-for="(item, index) in pageList" :key="index" :class="item.class">
               <a href="#" class="nav-link" @click.prevent="goNext(item.link)">
                 <p>{{ item.name }}</p>
               </a>
@@ -52,18 +52,22 @@ export default {
       pageList: [
         {
           name: '商品',
+          class: 'product',
           link: '/typeList/all'
         },
         {
           name: '購物車',
+          class: 'cart',
           link: '/cart'
         },
         {
           name: '訂單查詢',
+          class: 'order',
           link: '/order'
         },
         {
           name: '聯絡我們',
+          class: 'contact',
           link: '/contact'
         }
       ]
@@ -165,6 +169,36 @@ nav.navbar
         background-color: #D9BD9C
       ul
         opacity: 0
+        width: 90%
+        margin: 0 auto
+        li
+          margin: 0
+          &::after
+            content: ''
+            display: block
+            width: 25px
+            height: 25px
+            position: absolute
+            left: 0
+            top: 50%
+            transform: translateY(-50%)
+            background-repeat: no-repeat
+            background-size: contain
+            background-position: center
+          &.cart
+            &::after
+              background-image: url('/public/assets/images/icon/cart.png')
+          &.product
+            &::after
+              background-image: url('/public/assets/images/icon/product.png')
+          &.order
+            &::after
+              background-image: url('/public/assets/images/icon/order.png')
+          &.contact
+            &::after
+              background-image: url('/public/assets/images/icon/contact.png')
+          p
+            padding-left: 40px
       &.open
         animation: phoneOpen2 0.7s forwards
         &::before
