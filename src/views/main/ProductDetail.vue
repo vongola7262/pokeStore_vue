@@ -45,7 +45,7 @@
         </div>
       </div>
     </div>
-    <div class="moreProduct">
+    <!-- <div class="moreProduct">
       <swiper
         :navigation="true"
         :modules="modules"
@@ -71,14 +71,14 @@
           </div>
         </swiper-slide>
       </swiper>
-    </div>
+    </div> -->
   </section>
 </template>
 
 <script>
 import LoadingImg from '@/components/LoadingImg.vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Autoplay } from 'swiper'
+// import { Swiper, SwiperSlide } from 'swiper/vue'
+// import { Navigation, Autoplay } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -87,17 +87,17 @@ import 'swiper/css/navigation'
 export default {
   props: ['id'],
   components: {
-    LoadingImg,
-    Swiper,
-    SwiperSlide
+    LoadingImg
+    // Swiper,
+    // SwiperSlide
   },
   data () {
     return {
       product: null,
       moreProducts: [],
       product_qty: 1,
-      isLoading: false,
-      modules: [Navigation, Autoplay]
+      isLoading: false
+      // modules: [Navigation, Autoplay]
     }
   },
   methods: {
