@@ -232,6 +232,8 @@ section.orderList
         box-shadow: none
         border-color: none
       button
+        &:active
+          border-color: #f0dec9
         &.btn-search
           background-color: #D9BD9C
         &.btn-clean

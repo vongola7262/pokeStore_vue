@@ -8,18 +8,19 @@
           <input type="text"
             class="form-control"
             placeholder="關鍵字搜尋"
-            aria-describedby="button-addon2"
             v-model="keyword"
           >
-          <button class="btn btn-primary"
+          <button
+            class="btn btn-search"
             type="button"
-            @click.prevent="search"
+            @click.prevent="search(true)"
           >
             搜尋
           </button>
-          <button class="btn btn-secondary"
+          <button
+            class="btn btn-clean"
             type="button"
-            @click.prevent="empty"
+            @click.prevent="search(false)"
           >
             清除
           </button>
@@ -40,24 +41,23 @@
         </div>
         <div class="col-md-9">
           <div class="row listBox">
-            <div class="col-sm-6 col-lg-4" v-for="item in pageDetail" :key="item.id">
+            <div class="col-sm-6 col-lg-4 listlayout" v-for="item in pageDetail" :key="item.id">
               <div class="card" @click.prevent="getProductDetail(item.id)">
                 <div class="imgBox">
                   <img :src="item.imageUrl" class="card-img-top" alt="" />
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">{{ item.title }}</h5>
-                  <p class="card-text">{{ item.description }}</p>
-                  <div class="priceBox">
-                    <p>特價NT$ {{ item.price }}</p>
+                  <p>特價NT$ {{ item.price }}</p>
+                  <div class="btnBox">
+                    <button
+                      type="button"
+                      class="btn btn-addCart"
+                      @click.stop="addCart(item.id)"
+                    >
+                      <p>加入購物車</p>
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    @click.stop="addCart(item.id)"
-                  >
-                    加入購物車
-                  </button>
                 </div>
               </div>
             </div>
@@ -85,6 +85,9 @@
 import UserPageList from '@/components/UserPageList.vue'
 import LoadingImg from '@/components/LoadingImg.vue'
 import BannerImg from '@/components/BannerImg.vue'
+
+// import productStore from '@/stores/productStore.js'
+// import { mapActions } from 'pinia'
 
 export default {
   props: ['id'],
@@ -133,11 +136,13 @@ export default {
       keyword: null,
       // 搜尋內容
       searchList: {
+        // 全部data
+        products: [],
+        // 關鍵字
         word: null,
+        // 類型
         type: null
       },
-      // 全部data
-      products: [],
       // 搜尋結果data
       typeProducts: [],
       // 當前頁碼
@@ -151,14 +156,12 @@ export default {
     }
   },
   methods: {
-    getProducts (id) {
+    // ...mapActions(productStore, ['addToCard']),
+    getProducts () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`
       this.isLoading = true
       this.axios.get(api).then((res) => {
-        this.products = res.data.products
-        this.calc(res.data.products.length)
-        this.page = 1
-        this.searchList.type = id
+        this.searchList.products = res.data.products
         this.isLoading = false
       })
     },
@@ -175,12 +178,13 @@ export default {
     chooseItem (type) {
       this.searchList.type = type
     },
-    search () {
-      this.searchList.word = this.keyword
-    },
-    empty () {
-      this.searchList.word = null
-      this.keyword = null
+    search (s) {
+      if (s === true) {
+        this.searchList.word = this.keyword
+      } else {
+        this.searchList.word = null
+        this.keyword = null
+      }
     },
     addCart (id) {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
@@ -201,8 +205,10 @@ export default {
         const type = n.type
         const typeList = []
         const keyword = n.word
+        const products = n.products
         let keywordList = null
-        this.products.forEach(item => {
+
+        products.forEach(item => {
           if (type === 'all') {
             typeList.push(item)
           } else {
@@ -245,8 +251,8 @@ export default {
     }
   },
   created () {
-    const { id } = this.$route.params
-    this.getProducts(id)
+    this.searchList.type = this.$route.params.id
+    this.getProducts()
   }
 }
 </script>
@@ -273,8 +279,22 @@ section.mainList
       margin-bottom: 16px
       .input-group
         width: auto
+        input
+          border-color: #f0dec9
+        input:focus
+          box-shadow: none
+          border-color: none
+        button
+          &:active
+            border-color: #f0dec9
+          &.btn-search
+            background-color: #D9BD9C
+          &.btn-clean
+            background-color: #f0dec9
+          p
+            letter-spacing: 4px
     .listBox
-      .col-md-4
+      .listlayout
         margin-bottom: 24px
     .card
       overflow: hidden
@@ -299,6 +319,18 @@ section.mainList
           img
             width: 120%
       .card-body
-        .priceBox
+        position: relative
+        h5,p
+          margin-bottom: 10px
+        .btnBox
+          width: 100%
           display: flex
+          justify-content: flex-end
+          button
+            background-color: #D9BD9C
+            p
+              letter-spacing: 4px
+              margin-bottom: 0
+            &:active
+              border-color: #f0dec9
 </style>
