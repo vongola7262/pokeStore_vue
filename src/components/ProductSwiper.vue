@@ -20,7 +20,7 @@
               :key="index"
             >
               <div class="imgBox swiperL" @click.prevent="getProductDetail(item.id)">
-                <img :src="item.imageUrl" alt="item.title" />
+                <img :src="item.imageUrl" :alt="item.title" />
                 <div class="titleBox">
                   <h5>NT$ {{ item.price }}</h5>
                   <h3>{{ item.title }}</h3>

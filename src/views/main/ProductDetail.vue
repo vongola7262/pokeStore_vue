@@ -45,32 +45,88 @@
         </div>
       </div>
     </div>
+    <div class="moreProduct">
+      <swiper
+        :navigation="true"
+        :modules="modules"
+        :space-between="30"
+        :slides-per-view="3"
+        :loop="true"
+        :autoplay="{
+          delay: 2500,
+          pauseOnMouseEnter: true,
+          disableOnInteraction: false,
+        }"
+        class="mySwiper"
+      >
+        <swiper-slide
+          v-for="item in moreProducts"
+          :key="item.id"
+        >
+          <div class="imgBox"
+            @click.prevent="getProductDetail(item.id)"
+          >
+            <img :src="item.imageUrl" :alt="item.title">
+            <p>{{ item.title }}</p>
+          </div>
+        </swiper-slide>
+      </swiper>
+    </div>
   </section>
 </template>
 
 <script>
 import LoadingImg from '@/components/LoadingImg.vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation, Autoplay } from 'swiper'
+
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/navigation'
 
 export default {
   props: ['id'],
   components: {
-    LoadingImg
+    LoadingImg,
+    Swiper,
+    SwiperSlide
   },
   data () {
     return {
       product: null,
+      moreProducts: [],
       product_qty: 1,
-      isLoading: false
+      isLoading: false,
+      modules: [Navigation, Autoplay]
     }
   },
   methods: {
     // 取得產品內容
     getProduct (id) {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`
       this.isLoading = true
-      this.axios.get(api).then((res) => {
-        this.product = res.data.product
-        this.product_num = res.data.product.num
+      const ax = this.axios
+      const apiOne = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`
+      const apiAll = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`
+      function getData (api) {
+        return ax.get(api)
+      }
+
+      this.axios.all([getData(apiOne), getData(apiAll)]).then(res => {
+        // 主要產品
+        const one = res[0]
+        this.product = one.data.product
+        this.product_num = one.data.product.num
+
+        // 同分類其他產品
+        const all = res[1].data.products
+        const type = one.data.product.category
+        const typeList = []
+        all.forEach(item => {
+          if (item.category === type && item.id !== id) {
+            typeList.push(item)
+          }
+        })
+        this.moreProducts = typeList
         this.isLoading = false
       })
     },
@@ -94,6 +150,9 @@ export default {
       this.axios.post(url, cart).then((res) => {
         console.log(res)
       })
+    },
+    getProductDetail (id) {
+      this.$router.push(`/product/${id}`)
     }
   },
   created () {

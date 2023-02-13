@@ -2,7 +2,7 @@
   <LoadingImg :loadStatus="isLoading"></LoadingImg>
   <BannerImg :banner="bannerDetail"></BannerImg>
   <section class="mainList">
-    <div class="container">
+    <div class="container-md">
       <div class="row keywordBox">
         <div class="input-group">
           <input type="text"
@@ -47,8 +47,10 @@
                   <img :src="item.imageUrl" class="card-img-top" alt="" />
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">{{ item.title }}</h5>
-                  <p>特價NT$ {{ item.price }}</p>
+                  <div class="textBox">
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <p>特價NT$ {{ item.price }}</p>
+                  </div>
                   <div class="btnBox">
                     <button
                       type="button"
@@ -262,6 +264,14 @@ section.mainList
     padding: 60px 0
     min-height: 100vh
     width: 100%
+    @media screen and (max-width:575px)
+      padding: 40px 0
+    .container-md
+      @media screen and (max-width:767px)
+        max-width: 604px
+        width: 90%
+      @media screen and (max-width:575px)
+        width: 100%
     .typeList
       list-style-type: none
       padding: 0
@@ -293,6 +303,8 @@ section.mainList
             background-color: #f0dec9
           p
             letter-spacing: 4px
+        @media screen and (max-width:575px)
+          width: 100%
     .listBox
       .listlayout
         margin-bottom: 24px
@@ -319,18 +331,23 @@ section.mainList
           img
             width: 120%
       .card-body
-        position: relative
+        display: flex
+        flex-direction: column
+        justify-content: space-between
         h5,p
           margin-bottom: 10px
+        h5
+          min-height: 50px
         .btnBox
           width: 100%
-          display: flex
-          justify-content: flex-end
           button
+            width: 100%
             background-color: #D9BD9C
             p
               letter-spacing: 4px
               margin-bottom: 0
             &:active
               border-color: #f0dec9
+            &:hover
+              background-color: #f0dec9
 </style>
