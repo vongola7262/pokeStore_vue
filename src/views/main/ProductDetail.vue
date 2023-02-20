@@ -1,84 +1,104 @@
 <template>
   <LoadingImg :loadStatus="isLoading"></LoadingImg>
   <section class="mainProduct">
-    <div class="container">
-      <div class="row" v-if="product !== null">
-        <div class="col-md-7">
-          <div class="imgBox">
-            <img :src="product.imageUrl" alt="product.title">
+    <div class="container-lg">
+      <div class="mainBox">
+        <div class="row" v-if="product !== null">
+          <div class="col-md-7">
+            <div class="imgBox">
+              <img :src="product.imageUrl" alt="product.title">
+            </div>
           </div>
-        </div>
-        <div class="col-md-5">
-          <div class="detailBox">
-            <h4>{{ product.title }}</h4>
-            <p>{{ product.content }}</p>
-            <h6>原價{{ product.origin_price }}</h6>
-            <h4>特價{{ product.price }}</h4>
-          </div>
-          <div class="addBox">
-            <div class="numberList">
+          <div class="col-md-5">
+            <div class="detailBox">
+              <h3>{{ product.title }}</h3>
+              <div class="orginPrice">
+                <p>原價: NT${{ product.origin_price }}</p>
+              </div>
+              <h4>特價: NT${{ product.price }}</h4>
+            </div>
+            <div class="addBox">
+              <div class="unitBox">
+                <button
+                  type="button"
+                  class="btn remove"
+                  v-bind="{disabled: product_qty <= 1 }"
+                  @click.prevent="updateCart(false)"
+                >
+                  <p>-</p>
+                </button>
+                <div class="unitText">
+                  <p>
+                    {{ product_qty }}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  class="btn add"
+                  @click.prevent="updateCart(true)"
+                >
+                  <p>+</p>
+                </button>
+              </div>
               <button
                 type="button"
                 class="btn btn-primary"
-                @click.prevent="qtyUpdate(true)"
+                @click.prevent="addCart()"
               >
-                <h5>+</h5>
-              </button>
-              <h5>{{ product_qty }}</h5>
-              <button
-                type="button"
-                class="btn btn-primary"
-                v-bind="{disabled: product_qty <= 1}"
-                @click.prevent="qtyUpdate(false)"
-              >
-                <h5>-</h5>
+                <h5>加入購物車</h5>
               </button>
             </div>
-            <button
-              type="button"
-              class="btn btn-primary"
-              @click.prevent="addCart()"
-            >
-              加入購物車
-            </button>
           </div>
         </div>
       </div>
-    </div>
-    <!-- <div class="moreProduct">
-      <swiper
-        :navigation="true"
-        :modules="modules"
-        :space-between="30"
-        :slides-per-view="3"
-        :loop="true"
-        :autoplay="{
-          delay: 2500,
-          pauseOnMouseEnter: true,
-          disableOnInteraction: false,
-        }"
-        class="mySwiper"
-      >
-        <swiper-slide
-          v-for="item in moreProducts"
-          :key="item.id"
+      <div class="detailText" v-if="product !== null">
+        <h4>商品特色</h4>
+        <p>{{ product.content }}</p>
+      </div>
+      <div class="moreProduct" v-if="moreProducts.length !== 0">
+        <h4>推薦商品</h4>
+        <swiper
+          :navigation="true"
+          :modules="modules"
+          :space-between="10"
+          :slides-per-view="1"
+          :loop="true"
+          :breakpoints="{
+            414: {
+              slidesPerView: 2,
+              spaceBetween: 20
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 30
+            },
+          }"
+          class="mySwiper"
         >
-          <div class="imgBox"
-            @click.prevent="getProductDetail(item.id)"
+          <swiper-slide
+            v-for="item in moreProducts"
+            :key="item.id"
           >
-            <img :src="item.imageUrl" :alt="item.title">
-            <p>{{ item.title }}</p>
-          </div>
-        </swiper-slide>
-      </swiper>
-    </div> -->
+            <div class="imgBox"
+              @click.prevent="getProduct(item.id)"
+            >
+              <div class="moreImg">
+                <img :src="item.imageUrl" :alt="item.title">
+                <span>查看更多</span>
+              </div>
+              <p>{{ item.title }}</p>
+            </div>
+          </swiper-slide>
+        </swiper>
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
 import LoadingImg from '@/components/LoadingImg.vue'
-// import { Swiper, SwiperSlide } from 'swiper/vue'
-// import { Navigation, Autoplay } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -87,17 +107,17 @@ import 'swiper/css/navigation'
 export default {
   props: ['id'],
   components: {
-    LoadingImg
-    // Swiper,
-    // SwiperSlide
+    LoadingImg,
+    Swiper,
+    SwiperSlide
   },
   data () {
     return {
       product: null,
       moreProducts: [],
       product_qty: 1,
-      isLoading: false
-      // modules: [Navigation, Autoplay]
+      isLoading: false,
+      modules: [Navigation]
     }
   },
   methods: {
@@ -115,14 +135,13 @@ export default {
         // 主要產品
         const one = res[0]
         this.product = one.data.product
-        this.product_num = one.data.product.num
 
         // 同分類其他產品
         const all = res[1].data.products
-        const type = one.data.product.category
+        const { category, id } = one.data.product
         const typeList = []
         all.forEach(item => {
-          if (item.category === type && item.id !== id) {
+          if (item.category === category && item.id !== id) {
             typeList.push(item)
           }
         })
@@ -131,7 +150,7 @@ export default {
       })
     },
     // 數量變更
-    qtyUpdate (type) {
+    updateCart (type) {
       if (type === true) {
         this.product_qty += 1
       } else {
@@ -150,9 +169,6 @@ export default {
       this.axios.post(url, cart).then((res) => {
         console.log(res)
       })
-    },
-    getProductDetail (id) {
-      this.$router.push(`/product/${id}`)
     }
   },
   created () {
@@ -165,14 +181,190 @@ export default {
 <style lang="sass">
 section.mainProduct
   padding: 60px 0
+  background-color: #f0dec9
+  @media screen and (max-width:575px)
+    padding: 40px 0
+  .container-lg
+    width: 90%
+    margin: 0 auto
+    @media screen and (max-width:414px)
+      width: 100%
+  .mainBox
+    margin: 40px 0
+    @media screen and (max-width:575px)
+      margin: 20px 0
   .imgBox
     width: 100%
     position: relative
     overflow: hidden
     img
       width: 100%
+  .detailBox
+    h3
+      font-size: 36px
+      font-weight: 700
+      line-height: 1.8
+      color: #734230
+      border-bottom: 2px solid #734230
+    @media screen and (max-width:575px)
+      h3
+        font-size: 28px
+      margin: 20px 0
+    .detail
+      margin-bottom: 20px
+      h5
+        font-weight: 700
+        line-height: 1.8
+    h4
+      font-weight: 500
+      letter-spacing: 3px
+      color: #734230
+      font-size: 28px
+      line-height: 1.8
+      @media screen and (max-width:575px)
+        font-size: 20px
+  .orginPrice
+    display: flex
+    p
+      color: #ad8350
+      position: relative
+      line-height: 1.8
+      &::before
+        content: ''
+        display: block
+        width: 100%
+        height: 1px
+        background-color: #ad8350
+        position: absolute
+        left: 0
+        top: 60%
+        transform: translateY(-50%)
   .addBox
     display: flex
-    .numberList
+    flex-wrap: wrap
+    margin: 10px 0
+    .unitBox
       display: flex
+      align-items: center
+      margin-right: 20px
+      button
+        background-color: #D9BD9C
+        &.add
+          border-radius: 0 5px 5px 0
+        &.remove
+          border-radius: 5px 0 0 5px
+        &:active
+          border-color: #D9BD9C
+        &:disabled
+          background-color: #d5c6b4
+          border-color: #d5c6b4
+        &:hover
+          background-color: #d5aa78
+          border-color: #d5aa78
+      .unitText
+        border: 1px solid #D9BD9C
+        min-width: 60px
+        display: flex
+        align-items: center
+        justify-content: center
+        padding: 8px
+      p
+        font-size: 16px
+        margin-left: 5px
+        margin: 0
+    button
+      background-color: #D9BD9C
+      border-color: #D9BD9C
+      color: #734230
+      padding: 8px
+      h5
+        font-weight: 500
+        font-size: 20px
+        letter-spacing: 1.5px
+      &:hover
+        background-color: #d5aa78
+        border-color: #d5aa78
+  .detailText
+    border-top: 2px solid #734230
+    margin-bottom: 40px
+    h4
+      margin: 25px 0
+      line-height: 1.8
+      color: #734230
+      font-weight: 700
+  .moreProduct
+    border-top: 2px solid #734230
+    h4
+      margin: 25px 0
+      line-height: 1.8
+      color: #734230
+      font-weight: 700
+      @media screen and (max-width:575px)
+        margin: 15px 0
+    .swiper-button-next,.swiper-button-prev
+      width: 50px
+      height: 50px
+      background-color: #fff
+      border-radius: 50%
+      box-shadow: 0 0 10px rgb(0 0 0 / 60%)
+      &::after
+        font-size: 30px
+        color: #734230
+        font-weight: 700
+        position: relative
+    .swiper-button-next::after
+      left: 5%
+    .swiper-button-prev::after
+      right: 5%
+    .imgBox
+      cursor: pointer
+      .moreImg
+        overflow: hidden
+        position: relative
+        width: 100%
+        height: 0
+        padding-bottom: 68.57%
+        img
+          height: 100%
+          transition: all 0.3s
+          position: absolute
+          left: 50%
+          top: 50%
+          transform: translate(-50%,-50%)
+        span
+          color: #fff
+          border: 2px solid #fff
+          border-radius: 5px
+          padding: 5px 10px
+          letter-spacing: 5px
+          font-size: 18px
+          position: absolute
+          top: 50%
+          left: 50%
+          transform: translate(-50%,-50%)
+          z-index: 5
+          display: none
+        &::before
+          content: ''
+          display: block
+          width: 100%
+          height: 100%
+          position: absolute
+          left: 0
+          top: 0
+          background-color: black
+          opacity: 0
+          z-index: 2
+          transition: all 0.3s
+      p
+        font-size: 16px
+        letter-spacing: 1.5p
+      &:hover
+        .moreImg
+          &::before
+            opacity: 0.7
+          span
+            display: block
+          img
+            transform: translate(-50%,-50%) scale(1.1)
 </style>

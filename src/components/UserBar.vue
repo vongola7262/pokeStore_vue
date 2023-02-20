@@ -20,6 +20,19 @@
               </a>
             </li>
           </ul>
+          <div class="coptBox">
+            <a href="https://tw.portal-pokemon.com/" target= _blank>
+              <img
+                :src="footerImg"
+                alt="pokemon"
+              />
+            </a>
+            <p>
+              Copyright © Jing Yu Sing 2023
+              <br/>
+              僅個人作品，無商業用途
+            </p>
+          </div>
         </div>
         <div
           class="hamburger"
@@ -42,6 +55,7 @@ export default {
   data () {
     return {
       img: './assets/images/pokemon/pokemonStore.png',
+      footerImg: './assets/images/pokemon/International_Pokémon_logo.svg.png',
       // 導覽列是否置頂
       isTop: false,
       // 是否出現回最上方
@@ -170,35 +184,13 @@ nav.navbar
       ul
         opacity: 0
         width: 90%
-        margin: 0 auto
+        margin: 40px auto
         li
           margin: 0
-          &::after
-            content: ''
-            display: block
-            width: 25px
-            height: 25px
-            position: absolute
-            left: 0
-            top: 50%
-            transform: translateY(-50%)
-            background-repeat: no-repeat
-            background-size: contain
-            background-position: center
-          &.cart
-            &::after
-              background-image: url('/public/assets/images/icon/cart.png')
-          &.product
-            &::after
-              background-image: url('/public/assets/images/icon/product.png')
-          &.order
-            &::after
-              background-image: url('/public/assets/images/icon/order.png')
-          &.contact
-            &::after
-              background-image: url('/public/assets/images/icon/contact.png')
           p
-            padding-left: 40px
+            text-align: center
+            font-size: 24px
+            line-height: 2
       &.open
         animation: phoneOpen2 0.7s forwards
         &::before
@@ -286,6 +278,11 @@ nav.navbar
     &:hover
       &::before
         animation: nav-line 0.5s forwards
+      @media screen and (max-width:767px)
+        &::before
+          animation: none
+        p
+          color: #734230
   p
     color: #000000
     font-weight: 500
@@ -297,6 +294,35 @@ nav.navbar
       left: -100%
     100%
       left: 0%
+  .coptBox
+    display: none
+    position: absolute
+    bottom: 0
+    left: 50%
+    transform: translateX(-50%)
+    @media screen and (max-width:767px)
+      display: flex
+      width: 90%
+      margin: 0 auto
+      border-top: 2px solid #734230
+      padding: 30px 0
+      justify-content: center
+    @media screen and (max-width:575px)
+      flex-direction: column
+      align-items: center
+      padding: 0 0 20px 0
+    a
+      display: block
+      width: auto
+      img
+        width: 80%
+        max-width: 140px
+      @media screen and (max-width:575px)
+        padding: 20px 0
+    p
+      text-align: center
+      font-size: 14px
+      letter-spacing: 2px
   .topTip
     display: none
     position: fixed

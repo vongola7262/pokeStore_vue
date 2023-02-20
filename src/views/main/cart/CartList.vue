@@ -28,15 +28,15 @@
                   <h6>{{ item.product.title }}</h6>
                   <div v-if="item.coupon" class="finalPrice">
                     <h5>
-                      優惠價 : {{ item.final_total }}
+                      優惠價: {{ item.final_total }}
                     </h5>
                     <div class="orginPrice">
-                      <p>原價 : {{ item.total }}</p>
+                      <p>原價: {{ item.total }}</p>
                     </div>
                   </div>
                   <div v-else class="finalPrice">
                     <h5>
-                      特價 : {{ item.final_total }}
+                      特價: {{ item.final_total }}
                     </h5>
                   </div>
                   <a href=""

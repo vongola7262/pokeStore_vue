@@ -5,7 +5,7 @@
         <a href="https://tw.portal-pokemon.com/" target= _blank>
           <img
             :src="img"
-            alt=""
+            alt="pokemon"
           />
         </a>
       </div>
