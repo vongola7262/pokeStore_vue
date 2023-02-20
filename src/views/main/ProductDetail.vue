@@ -147,6 +147,11 @@ export default {
         })
         this.moreProducts = typeList
         this.isLoading = false
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        })
       })
     },
     // 數量變更
