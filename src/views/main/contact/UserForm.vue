@@ -1,5 +1,5 @@
 <template>
-  <section class="mainForm">
+  <section class="contactForm">
     <div class="container">
       <div class="row">
         <div class="col-lg-7 col-md-5 contactlayout">
@@ -191,7 +191,7 @@ export default {
 </script>
 
 <style lang="sass">
-section.mainForm
+section.contactForm
   background-color: #f0dec9
   padding: 80px 0
   .contactlayout
@@ -252,11 +252,6 @@ section.mainForm
     box-shadow:  8px 8px 14px #734230
     position: relative
     overflow: hidden
-    @media screen and (max-width:575px)
-      width: 90%
-      margin: 0 auto
-    @media screen and (max-width:339px)
-      width: 100%
     &::before,&::after
       content: ''
       display: block

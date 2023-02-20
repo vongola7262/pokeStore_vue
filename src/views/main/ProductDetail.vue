@@ -55,7 +55,7 @@
         <h4>商品特色</h4>
         <p>{{ product.content }}</p>
       </div>
-      <div class="moreProduct" v-if="moreProducts.length !== 0">
+      <div class="mayProduct" v-if="moreProducts.length !== 0">
         <h4>推薦商品</h4>
         <swiper
           :navigation="true"
@@ -292,7 +292,7 @@ section.mainProduct
       line-height: 1.8
       color: #734230
       font-weight: 700
-  .moreProduct
+  .mayProduct
     border-top: 2px solid #734230
     h4
       margin: 25px 0
