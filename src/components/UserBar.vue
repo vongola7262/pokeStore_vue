@@ -17,8 +17,8 @@
             <li v-for="(item, index) in pageList" :key="index" :class="item.class">
               <a href="#" class="nav-link" @click.prevent="goNext(item.link)">
                 <p>{{ item.name }}</p>
-                <div v-if="item.class === 'cart' && totalNum > 0" class="numText">
-                  <p>{{ totalNum }}</p>
+                <div v-if="item.class === 'cart' && getQty > 0" class="numText">
+                  <p>{{ getQty }}</p>
                 </div>
               </a>
             </li>
@@ -94,7 +94,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(cartStore, ['totalNum'])
+    ...mapState(cartStore, ['totalNum', 'getQty'])
   },
   methods: {
     ...mapActions(cartStore, ['getCartList']),

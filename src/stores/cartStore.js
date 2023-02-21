@@ -19,7 +19,6 @@ export default defineStore('cartStore', {
         this.cartList = res.data.data.carts
         this.total = res.data.data.total
         this.final_total = res.data.data.final_total
-        this.totalNum = res.data.data.carts.length
         this.isLoading = false
       })
     },
@@ -68,6 +67,11 @@ export default defineStore('cartStore', {
         this.btnStatus = false
         this.getCartList()
       })
+    }
+  },
+  getters: {
+    getQty (state) {
+      return state.cartList.length
     }
   }
 })

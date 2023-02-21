@@ -122,11 +122,22 @@ export default {
     }
   },
   computed: {
-    ...mapState(productStore, ['product', 'moreProducts', 'isLoading'])
+    ...mapState(productStore, ['product', 'isLoading', 'productsList']),
+    moreProducts () {
+      const all = this.productsList
+      const { category, id } = this.product
+      const typeList = []
+      all.forEach(item => {
+        if (item.category === category && item.id !== id) {
+          typeList.push(item)
+        }
+      })
+      return typeList
+    }
   },
   methods: {
     ...mapActions(cartStore, ['addCart']),
-    ...mapActions(productStore, ['getProduct']),
+    ...mapActions(productStore, ['getProduct', 'getAllProducts']),
     // 數量變更
     updateCart (type) {
       if (type === true) {
@@ -139,6 +150,7 @@ export default {
   created () {
     const { id } = this.$route.params
     this.getProduct(id)
+    this.getAllProducts()
   }
 }
 </script>
