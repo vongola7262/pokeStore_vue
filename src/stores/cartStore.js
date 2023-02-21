@@ -1,25 +1,26 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import statusStore from './statusStore'
+
+const status = statusStore()
 
 export default defineStore('cartStore', {
   state: () => ({
     cartList: [],
     total: null,
     final_total: null,
-    totalNum: 0,
-    isLoading: false,
-    btnStatus: false
+    totalNum: 0
   }),
   actions: {
     // 所有商品
     getCartList () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
-      this.isLoading = true
+      status.isLoading = true
       axios.get(api).then((res) => {
         this.cartList = res.data.data.carts
         this.total = res.data.data.total
         this.final_total = res.data.data.final_total
-        this.isLoading = false
+        status.isLoading = false
       })
     },
     // 新增商品
@@ -51,7 +52,7 @@ export default defineStore('cartStore', {
     },
     // 更新單筆數量
     updateCart (item, type) {
-      this.btnStatus = true
+      status.btnStatus = true
       let { id, qty, product_id: proId } = item
       if (type === true) {
         qty += 1
@@ -64,7 +65,7 @@ export default defineStore('cartStore', {
       }
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`
       axios.put(api, { data: cartItem }).then((res) => {
-        this.btnStatus = false
+        status.btnStatus = false
         this.getCartList()
       })
     }

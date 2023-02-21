@@ -167,6 +167,7 @@
 import LoadingImg from '@/components/LoadingImg.vue'
 
 import cartStore from '@/stores/cartStore.js'
+import statusStore from '@/stores/statusStore'
 import { mapState, mapActions } from 'pinia'
 
 export default {
@@ -180,7 +181,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(cartStore, ['cartList', 'total', 'final_total', 'btnStatus', 'isLoading'])
+    ...mapState(cartStore, ['cartList', 'total', 'final_total', 'isLoading']),
+    ...mapState(statusStore, ['isLoading', 'btnStatus'])
   },
   methods: {
     ...mapActions(cartStore, ['getCartList', 'removeItem', 'cleanAll', 'updateCart']),

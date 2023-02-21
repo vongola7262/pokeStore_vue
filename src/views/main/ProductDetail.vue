@@ -102,6 +102,7 @@ import { Navigation } from 'swiper'
 
 import productStore from '@/stores/productStore.js'
 import cartStore from '@/stores/cartStore.js'
+import statusStore from '@/stores/statusStore'
 import { mapState, mapActions } from 'pinia'
 
 // Import Swiper styles
@@ -122,16 +123,19 @@ export default {
     }
   },
   computed: {
-    ...mapState(productStore, ['product', 'isLoading', 'productsList']),
+    ...mapState(statusStore, ['isLoading']),
+    ...mapState(productStore, ['product', 'productsList']),
     moreProducts () {
       const all = this.productsList
-      const { category, id } = this.product
       const typeList = []
-      all.forEach(item => {
-        if (item.category === category && item.id !== id) {
-          typeList.push(item)
-        }
-      })
+      if (this.product != null) {
+        const { category, id } = this.product
+        all.forEach(item => {
+          if (item.category === category && item.id !== id) {
+            typeList.push(item)
+          }
+        })
+      }
       return typeList
     }
   },

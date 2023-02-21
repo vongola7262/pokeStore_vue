@@ -89,6 +89,7 @@ import LoadingImg from '@/components/LoadingImg.vue'
 import BannerImg from '@/components/BannerImg.vue'
 
 import productStore from '@/stores/productStore.js'
+import statusStore from '@/stores/statusStore'
 import cartStore from '@/stores/cartStore.js'
 import { mapState, mapActions } from 'pinia'
 
@@ -215,7 +216,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(productStore, ['productsList', 'isLoading']),
+    ...mapState(statusStore, ['isLoading']),
+    ...mapState(productStore, ['productsList']),
     pageDetail () {
       const pageTotal = this.pageTotal
       const perpage = this.perpage
