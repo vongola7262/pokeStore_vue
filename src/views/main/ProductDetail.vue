@@ -43,7 +43,7 @@
               <button
                 type="button"
                 class="btn btn-primary"
-                @click.prevent="addCart()"
+                @click.prevent="addCart(product.id, product_qty)"
               >
                 <h5>加入購物車</h5>
               </button>
@@ -55,13 +55,13 @@
         <h4>商品特色</h4>
         <p>{{ product.content }}</p>
       </div>
-      <div class="mayProduct" v-if="moreProducts.length !== 0">
+      <div class="mayProduct" v-if="moreProducts.length >= 3">
         <h4>推薦商品</h4>
         <swiper
           :navigation="true"
           :modules="modules"
           :space-between="10"
-          :slides-per-view="1"
+          :slides-per-view="3"
           :loop="true"
           :breakpoints="{
             414: {
@@ -100,6 +100,10 @@ import LoadingImg from '@/components/LoadingImg.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation } from 'swiper'
 
+import productStore from '@/stores/productStore.js'
+import cartStore from '@/stores/cartStore.js'
+import { mapState, mapActions } from 'pinia'
+
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -113,47 +117,16 @@ export default {
   },
   data () {
     return {
-      product: null,
-      moreProducts: [],
       product_qty: 1,
-      isLoading: false,
       modules: [Navigation]
     }
   },
+  computed: {
+    ...mapState(productStore, ['product', 'moreProducts', 'isLoading'])
+  },
   methods: {
-    // 取得產品內容
-    getProduct (id) {
-      this.isLoading = true
-      const ax = this.axios
-      const apiOne = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`
-      const apiAll = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`
-      function getData (api) {
-        return ax.get(api)
-      }
-
-      this.axios.all([getData(apiOne), getData(apiAll)]).then(res => {
-        // 主要產品
-        const one = res[0]
-        this.product = one.data.product
-
-        // 同分類其他產品
-        const all = res[1].data.products
-        const { category, id } = one.data.product
-        const typeList = []
-        all.forEach(item => {
-          if (item.category === category && item.id !== id) {
-            typeList.push(item)
-          }
-        })
-        this.moreProducts = typeList
-        this.isLoading = false
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: 'smooth'
-        })
-      })
-    },
+    ...mapActions(cartStore, ['addCart']),
+    ...mapActions(productStore, ['getProduct']),
     // 數量變更
     updateCart (type) {
       if (type === true) {
@@ -161,19 +134,6 @@ export default {
       } else {
         this.product_qty -= 1
       }
-    },
-    // 加入購物車
-    addCart () {
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
-      const cart = {
-        data: {
-          product_id: this.product.id,
-          qty: this.product_qty
-        }
-      }
-      this.axios.post(url, cart).then((res) => {
-        console.log(res)
-      })
     }
   },
   created () {

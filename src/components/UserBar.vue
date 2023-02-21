@@ -17,6 +17,9 @@
             <li v-for="(item, index) in pageList" :key="index" :class="item.class">
               <a href="#" class="nav-link" @click.prevent="goNext(item.link)">
                 <p>{{ item.name }}</p>
+                <div v-if="item.class === 'cart' && totalNum > 0" class="numText">
+                  <p>{{ totalNum }}</p>
+                </div>
               </a>
             </li>
           </ul>
@@ -51,6 +54,9 @@
 </template>
 
 <script>
+import cartStore from '@/stores/cartStore.js'
+import { mapState, mapActions } from 'pinia'
+
 export default {
   data () {
     return {
@@ -87,7 +93,11 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapState(cartStore, ['totalNum'])
+  },
   methods: {
+    ...mapActions(cartStore, ['getCartList']),
     userBar () {
       const scrollHeight = window.pageYOffset
       if (scrollHeight > 0) {
@@ -136,6 +146,7 @@ export default {
   created () {
     window.addEventListener('scroll', this.userBar)
     window.addEventListener('resize', this.viewType)
+    this.getCartList()
   }
 }
 </script>
@@ -187,10 +198,12 @@ nav.navbar
         margin: 40px auto
         li
           margin: 0
-          p
-            text-align: center
-            font-size: 24px
-            line-height: 2
+          a
+            justify-content: center
+            p
+              text-align: center
+              font-size: 24px
+              line-height: 2
       &.open
         animation: phoneOpen2 0.7s forwards
         &::before
@@ -283,12 +296,29 @@ nav.navbar
           animation: none
         p
           color: #734230
-  p
-    color: #000000
-    font-weight: 500
-    letter-spacing: 4px
-    font-size: 18px
-    transition: all 0.3s
+    a.nav-link
+      display: flex
+      align-items: center
+      p
+        color: #000000
+        font-weight: 500
+        letter-spacing: 4px
+        font-size: 18px
+        transition: all 0.3s
+      .numText
+        display: flex
+        justify-content: center
+        align-items: center
+        min-width: 20px
+        height: 20px
+        padding: 0 5px
+        border-radius: 12px
+        background-color: #734230
+        p
+          font-size: 14px
+          color: #fff
+          position: relative
+          left: 2px
   @keyframes nav-line
     0%
       left: -100%

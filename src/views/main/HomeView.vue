@@ -98,6 +98,10 @@
 import ProductSwiper from '@/components/ProductSwiper.vue'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+
+import productStore from '@/stores/productStore.js'
+import { mapState, mapActions } from 'pinia'
+
 export default {
   components: {
     ProductSwiper
@@ -154,25 +158,27 @@ export default {
     }
   },
   methods: {
-    getProducts () {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`
-      this.axios.get(api).then((res) => {
-        const list = res.data.products
-        list.forEach(item => {
-          if (item.category === 'hot' && this.swiperHot.length <= 4) {
-            this.swiperHot.push(item)
-          } else if (item.category === 'joint' && this.swiperJoint.length <= 4) {
-            this.swiperJoint.push(item)
-          }
-        })
-      })
-    },
+    ...mapActions(productStore, ['getAllProducts']),
     goType (n) {
       this.$router.push(n)
     }
   },
+  watch: {
+    productsList (n) {
+      n.forEach(item => {
+        if (item.category === 'hot' && this.swiperHot.length <= 4) {
+          this.swiperHot.push(item)
+        } else if (item.category === 'joint' && this.swiperJoint.length <= 4) {
+          this.swiperJoint.push(item)
+        }
+      })
+    }
+  },
+  computed: {
+    ...mapState(productStore, ['productsList'])
+  },
   created () {
-    this.getProducts()
+    this.getAllProducts()
     AOS.init({})
   }
 }

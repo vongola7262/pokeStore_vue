@@ -166,66 +166,24 @@
 <script>
 import LoadingImg from '@/components/LoadingImg.vue'
 
+import cartStore from '@/stores/cartStore.js'
+import { mapState, mapActions } from 'pinia'
+
 export default {
   components: {
     LoadingImg
   },
   data () {
     return {
-      cartList: [],
-      total: null,
-      final_total: null,
       Code: null,
-      isLoading: false,
-      btnStatus: false,
       enterCodeStatus: ''
     }
   },
+  computed: {
+    ...mapState(cartStore, ['cartList', 'total', 'final_total', 'btnStatus', 'isLoading'])
+  },
   methods: {
-    // 取得所有資料
-    getCartList () {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
-      this.isLoading = true
-      this.axios.get(api).then((res) => {
-        this.cartList = res.data.data.carts
-        this.total = res.data.data.total
-        this.final_total = res.data.data.final_total
-        this.isLoading = false
-      })
-    },
-    // 更新單筆數量
-    updateCart (item, type) {
-      this.btnStatus = true
-      let { id, qty, product_id: proId } = item
-      if (type === true) {
-        qty += 1
-      } else {
-        qty -= 1
-      }
-      const cartItem = {
-        product_id: proId,
-        qty: qty
-      }
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`
-      this.axios.put(api, { data: cartItem }).then((res) => {
-        this.btnStatus = false
-        this.getCartList()
-      })
-    },
-    // 刪除單筆
-    removeItem (id) {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`
-      this.axios.delete(api).then((res) => {
-        this.getCartList()
-      })
-    },
-    // 全部刪除
-    cleanAll () {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/carts`
-      this.axios.delete(api).then((res) => {
-        this.getCartList()
-      })
-    },
+    ...mapActions(cartStore, ['getCartList', 'removeItem', 'cleanAll', 'updateCart']),
     // 套用優惠碼
     enterCode () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/coupon`

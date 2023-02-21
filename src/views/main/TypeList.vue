@@ -72,7 +72,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row" v-if="pageTotal > 1">
             <div class="col-md-12">
               <UserPageList :num="pageTotal" :now-Page="page" @newpage="resetPage"></UserPageList>
             </div>
@@ -88,8 +88,9 @@ import UserPageList from '@/components/UserPageList.vue'
 import LoadingImg from '@/components/LoadingImg.vue'
 import BannerImg from '@/components/BannerImg.vue'
 
-// import productStore from '@/stores/productStore.js'
-// import { mapActions } from 'pinia'
+import productStore from '@/stores/productStore.js'
+import cartStore from '@/stores/cartStore.js'
+import { mapState, mapActions } from 'pinia'
 
 export default {
   props: ['id'],
@@ -152,21 +153,12 @@ export default {
       // 總共幾頁
       pageTotal: 0,
       // 每頁12筆
-      perpage: 12,
-      // 待機狀態
-      isLoading: false
+      perpage: 12
     }
   },
   methods: {
-    // ...mapActions(productStore, ['addToCard']),
-    getProducts () {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`
-      this.isLoading = true
-      this.axios.get(api).then((res) => {
-        this.searchList.products = res.data.products
-        this.isLoading = false
-      })
-    },
+    ...mapActions(productStore, ['getAllProducts']),
+    ...mapActions(cartStore, ['addCart']),
     calc (n) {
       const r = this.perpage
       this.pageTotal = Math.ceil(n / r)
@@ -187,21 +179,12 @@ export default {
         this.searchList.word = null
         this.keyword = null
       }
-    },
-    addCart (id) {
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
-      const cart = {
-        data: {
-          product_id: id,
-          qty: 1
-        }
-      }
-      this.axios.post(url, cart).then((res) => {
-        console.log(res)
-      })
     }
   },
   watch: {
+    productsList (n) {
+      this.searchList.products = n
+    },
     searchList: {
       handler (n) {
         const type = n.type
@@ -232,6 +215,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(productStore, ['productsList', 'isLoading']),
     pageDetail () {
       const pageTotal = this.pageTotal
       const perpage = this.perpage
@@ -254,7 +238,7 @@ export default {
   },
   created () {
     this.searchList.type = this.$route.params.id
-    this.getProducts()
+    this.getAllProducts()
   }
 }
 </script>
