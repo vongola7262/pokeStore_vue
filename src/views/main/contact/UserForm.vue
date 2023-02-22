@@ -126,11 +126,16 @@
 import { Form, Field, ErrorMessage, defineRule, configure } from 'vee-validate'
 import { required, email, length, numeric } from '@vee-validate/rules'
 import { localize } from '@vee-validate/i18n'
+import { useSeoMeta } from 'unhead'
 
 defineRule('required', required)
 defineRule('email', email)
 defineRule('length', length)
 defineRule('numeric', numeric)
+
+useSeoMeta({
+  title: '聯絡我們'
+})
 
 configure({
   // Generates an English message locale generator

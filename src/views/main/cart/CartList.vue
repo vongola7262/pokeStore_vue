@@ -167,10 +167,15 @@
 <script>
 import LoadingImg from '@/components/LoadingImg.vue'
 import HintCard from '@/components/HintCard.vue'
+import { useSeoMeta } from 'unhead'
 
 import cartStore from '@/stores/cartStore.js'
 import statusStore from '@/stores/statusStore'
 import { mapState, mapActions } from 'pinia'
+
+useSeoMeta({
+  title: '購物車'
+})
 
 export default {
   components: {

@@ -104,7 +104,7 @@ import productStore from '@/stores/productStore.js'
 import { mapState, mapActions } from 'pinia'
 
 useSeoMeta({
-  title: 'Pokemon Store',
+  title: '寶可夢中心',
   description: 'Pokemon Stroe Tw',
   ogDescription: 'Pokemon Stroe Tw',
   ogTitle: 'Pokemon Store'

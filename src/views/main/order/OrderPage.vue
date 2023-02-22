@@ -5,6 +5,11 @@
 
 <script>
 import BannerImg from '@/components/BannerImg.vue'
+import { useSeoMeta } from 'unhead'
+
+useSeoMeta({
+  title: '商品訂單'
+})
 
 export default {
   components: {

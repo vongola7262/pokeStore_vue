@@ -12,6 +12,13 @@
   </section>
 </template>
 
+<script>
+import { useSeoMeta } from 'unhead'
+useSeoMeta({
+  title: '成功送出!!'
+})
+</script>
+
 <style lang="sass">
 section.formSuccess
     background-color: #f0dec9

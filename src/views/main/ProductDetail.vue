@@ -101,6 +101,7 @@ import LoadingImg from '@/components/LoadingImg.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation } from 'swiper'
 import HintCard from '@/components/HintCard.vue'
+import { useSeoMeta } from 'unhead'
 
 import productStore from '@/stores/productStore.js'
 import cartStore from '@/stores/cartStore.js'
@@ -110,6 +111,10 @@ import { mapState, mapActions } from 'pinia'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
+
+useSeoMeta({
+  title: '寶可夢商品'
+})
 
 export default {
   props: ['id'],

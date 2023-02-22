@@ -159,12 +159,16 @@ import { mapActions } from 'pinia'
 import { Form, Field, ErrorMessage, defineRule, configure } from 'vee-validate'
 import { required, email, length, numeric } from '@vee-validate/rules'
 import { localize } from '@vee-validate/i18n'
+import { useSeoMeta } from 'unhead'
 
 defineRule('required', required)
 defineRule('email', email)
 defineRule('length', length)
 defineRule('numeric', numeric)
 
+useSeoMeta({
+  title: '購物車'
+})
 configure({
   // Generates an English message locale generator
   generateMessage: localize('zh-TW', {

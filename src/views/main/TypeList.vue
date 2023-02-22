@@ -90,11 +90,16 @@ import UserPageList from '@/components/UserPageList.vue'
 import LoadingImg from '@/components/LoadingImg.vue'
 import BannerImg from '@/components/BannerImg.vue'
 import HintCard from '@/components/HintCard.vue'
+import { useSeoMeta } from 'unhead'
 
 import productStore from '@/stores/productStore.js'
 import statusStore from '@/stores/statusStore'
 import cartStore from '@/stores/cartStore.js'
 import { mapState, mapActions } from 'pinia'
+
+useSeoMeta({
+  title: '寶可夢商店'
+})
 
 export default {
   props: ['id'],

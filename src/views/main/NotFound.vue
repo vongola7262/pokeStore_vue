@@ -14,6 +14,11 @@
 </template>
 
 <script>
+import { useSeoMeta } from 'unhead'
+
+useSeoMeta({
+  title: '錯誤頁面'
+})
 export default {
   data () {
     return {
