@@ -1,5 +1,6 @@
 <template>
   <LoadingImg :loadStatus="isLoading"></LoadingImg>
+  <HintCard :isHint="hintStatus"></HintCard>
   <section class="mainCartList">
     <div class="container-lg">
       <div v-if="cartList.length == 0" class="emptyText">
@@ -165,6 +166,7 @@
 
 <script>
 import LoadingImg from '@/components/LoadingImg.vue'
+import HintCard from '@/components/HintCard.vue'
 
 import cartStore from '@/stores/cartStore.js'
 import statusStore from '@/stores/statusStore'
@@ -172,7 +174,8 @@ import { mapState, mapActions } from 'pinia'
 
 export default {
   components: {
-    LoadingImg
+    LoadingImg,
+    HintCard
   },
   data () {
     return {
@@ -182,7 +185,7 @@ export default {
   },
   computed: {
     ...mapState(cartStore, ['cartList', 'total', 'final_total', 'isLoading']),
-    ...mapState(statusStore, ['isLoading', 'btnStatus'])
+    ...mapState(statusStore, ['isLoading', 'btnStatus', 'hintStatus'])
   },
   methods: {
     ...mapActions(cartStore, ['getCartList', 'removeItem', 'cleanAll', 'updateCart']),

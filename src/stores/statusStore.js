@@ -5,6 +5,12 @@ export default defineStore('statusStore', {
     // 載入動畫
     isLoading: false,
     // 禁止連續點擊
-    btnStatus: false
+    btnStatus: false,
+    // 提示框狀態
+    hintStatus: {
+      active: false,
+      status: false,
+      text: ''
+    }
   })
 })

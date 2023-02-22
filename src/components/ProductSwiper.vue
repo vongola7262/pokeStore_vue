@@ -3,7 +3,7 @@
     <div class="row">
       <div
         class="col-lg-6 porLeft"
-        data-aos="flip-left"
+        data-aos="fade-right"
         data-aos-duration="1500"
         data-aos-offset="400"
       >
@@ -32,7 +32,7 @@
       </div>
       <div
         class="col-lg-6 porRight"
-        data-aos="flip-right"
+        data-aos="fade-left"
         data-aos-duration="1500"
         data-aos-delay="1000"
       >

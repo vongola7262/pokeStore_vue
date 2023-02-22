@@ -1,5 +1,6 @@
 <template>
   <LoadingImg :loadStatus="isLoading"></LoadingImg>
+  <HintCard :isHint="hintStatus"></HintCard>
   <section class="mainProduct">
     <div class="container-lg">
       <div class="mainBox">
@@ -99,6 +100,7 @@
 import LoadingImg from '@/components/LoadingImg.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation } from 'swiper'
+import HintCard from '@/components/HintCard.vue'
 
 import productStore from '@/stores/productStore.js'
 import cartStore from '@/stores/cartStore.js'
@@ -114,7 +116,8 @@ export default {
   components: {
     LoadingImg,
     Swiper,
-    SwiperSlide
+    SwiperSlide,
+    HintCard
   },
   data () {
     return {
@@ -123,7 +126,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(statusStore, ['isLoading']),
+    ...mapState(statusStore, ['isLoading', 'hintStatus']),
     ...mapState(productStore, ['product', 'productsList']),
     moreProducts () {
       const all = this.productsList

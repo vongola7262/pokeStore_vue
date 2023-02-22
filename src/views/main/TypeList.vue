@@ -1,6 +1,7 @@
 <template>
   <LoadingImg :loadStatus="isLoading"></LoadingImg>
   <BannerImg :banner="bannerDetail"></BannerImg>
+  <HintCard :isHint="hintStatus"></HintCard>
   <section class="mainList">
     <div class="container-md">
       <div class="row keywordBox">
@@ -49,6 +50,7 @@
                 <div class="card-body">
                   <div class="textBox">
                     <h5 class="card-title">{{ item.title }}</h5>
+                    <p class="origin">原價NT$ {{ item.origin_price }}</p>
                     <p>特價NT$ {{ item.price }}</p>
                   </div>
                   <div class="btnBox">
@@ -87,6 +89,7 @@
 import UserPageList from '@/components/UserPageList.vue'
 import LoadingImg from '@/components/LoadingImg.vue'
 import BannerImg from '@/components/BannerImg.vue'
+import HintCard from '@/components/HintCard.vue'
 
 import productStore from '@/stores/productStore.js'
 import statusStore from '@/stores/statusStore'
@@ -98,7 +101,8 @@ export default {
   components: {
     UserPageList,
     LoadingImg,
-    BannerImg
+    BannerImg,
+    HintCard
   },
   data () {
     return {
@@ -216,7 +220,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(statusStore, ['isLoading']),
+    ...mapState(statusStore, ['isLoading', 'hintStatus']),
     ...mapState(productStore, ['productsList']),
     pageDetail () {
       const pageTotal = this.pageTotal
@@ -324,6 +328,12 @@ section.mainList
           margin-bottom: 10px
         h5
           min-height: 50px
+        p
+          font-size: 18px
+        .origin
+          font-size: 14px
+          opacity: 0.5
+          margin-bottom: 0
         .btnBox
           width: 100%
           button

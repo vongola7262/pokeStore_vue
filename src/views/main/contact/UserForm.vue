@@ -170,11 +170,6 @@ export default {
           link: 'https://www.facebook.com/Pokemon.Official.Taiwan/'
         },
         {
-          title: 'tiktok',
-          img: './assets/images/icon/tiktok.png',
-          link: '#'
-        },
-        {
           title: 'youtube',
           img: './assets/images/icon/youtube.png',
           link: 'https://www.youtube.com/channel/UCUsB9KTwSGgPlIARzdaKb_Q'
