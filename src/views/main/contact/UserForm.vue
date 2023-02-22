@@ -14,8 +14,8 @@
               </li>
               <li>
                 <h5>Email:</h5>
-                <a href="mailto:pokeStore@gmail.com">
-                  <h6>pokeStore@gmail.com</h6>
+                <a href="mailto:pokestore@gmail.com">
+                  <h6>pokestore@gmail.com</h6>
                 </a>
               </li>
               <li>

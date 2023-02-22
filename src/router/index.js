@@ -17,8 +17,8 @@ const routes = [
         component: () => import('../views/admin/ProductList.vue')
       },
       {
-        path: 'orderlist',
-        name: 'orderlist',
+        path: 'orderPage',
+        name: 'orderPage',
         component: () => import('../views/admin/OrderList.vue')
       },
       {

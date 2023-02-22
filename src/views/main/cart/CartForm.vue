@@ -154,6 +154,8 @@
 </template>
 
 <script>
+import cartStore from '@/stores/cartStore.js'
+import { mapActions } from 'pinia'
 import { Form, Field, ErrorMessage, defineRule, configure } from 'vee-validate'
 import { required, email, length, numeric } from '@vee-validate/rules'
 import { localize } from '@vee-validate/i18n'
@@ -201,6 +203,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(cartStore, ['getCartList']),
     onS () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`
       const form = {
@@ -211,6 +214,7 @@ export default {
         const id = res.data.orderId
         if (res.data.success === true) {
           this.$router.push(`/order/checkout/${id}`)
+          this.getCartList()
         } else {
           this.$router.push(`/order/checkout/${id}`)
         }

@@ -168,10 +168,6 @@ export default {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/pay/${id}`
       this.axios.post(api).then(res => {
         if (res.data.success === true) {
-          console.log(res)
-          this.$router.push({ name: 'cartsuccess' })
-        } else {
-          console.log('error')
           this.$router.push({ name: 'cartsuccess' })
         }
       })

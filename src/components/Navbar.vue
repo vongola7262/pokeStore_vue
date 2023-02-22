@@ -16,10 +16,13 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
+            <router-link :to="{name: 'index' }" class="nav-link">前台</router-link>
+          </li>
+          <li class="nav-item">
             <router-link :to="{name: 'products' }" class="nav-link">產品</router-link>
           </li>
           <li class="nav-item">
-            <router-link :to="{name: 'orderlist' }" class="nav-link">訂單</router-link>
+            <router-link :to="{name: 'orderPage' }" class="nav-link">訂單</router-link>
           </li>
           <li class="nav-item">
             <router-link :to="{name: 'voucher' }" class="nav-link">優惠券</router-link>

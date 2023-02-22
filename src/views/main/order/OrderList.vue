@@ -81,7 +81,7 @@
             </tr>
             <tr v-if="pageDetail.length == 0 " class="noneList">
               <td colspan="6">
-                <h4>查無訂單，請重新搜尋</h4>
+                <h4>目前沒有訂單，請重新搜尋</h4>
               </td>
             </tr>
           </tbody>
