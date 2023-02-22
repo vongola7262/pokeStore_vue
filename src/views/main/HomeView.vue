@@ -295,6 +295,7 @@ section.homePage
 section.productSwiper
   padding: 150px 0
   background-color: $darkBrown
+  overflow: hidden
   @media screen and (max-width:991px)
     padding: 100px 0
   @media screen and (max-width:767px)

@@ -21,7 +21,7 @@ section.banner
     justify-content: center
     align-items: center
     @media screen and (max-width:575px)
-      height: 160px
+      height: 140px
     &::before
         content: ''
         display: block
