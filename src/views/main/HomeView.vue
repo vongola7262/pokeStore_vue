@@ -98,9 +98,17 @@
 import ProductSwiper from '@/components/ProductSwiper.vue'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import { useSeoMeta } from 'unhead'
 
 import productStore from '@/stores/productStore.js'
 import { mapState, mapActions } from 'pinia'
+
+useSeoMeta({
+  title: 'Pokemon Store',
+  description: 'Pokemon Stroe Tw',
+  ogDescription: 'Pokemon Stroe Tw',
+  ogTitle: 'Pokemon Store'
+})
 
 export default {
   components: {
