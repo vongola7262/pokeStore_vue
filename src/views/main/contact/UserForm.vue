@@ -194,10 +194,26 @@ export default {
 section.contactForm
   background-color: #f0dec9
   padding: 80px 0
+  position: relative
+  &::before
+    content: ''
+    display: block
+    width: 100%
+    height: 100%
+    background-repeat: no-repeat
+    background-size: cover
+    background-position: center
+    background-image: url('/public/assets/images/banner/pokemon.jpg')
+    position: absolute
+    left: 50%
+    top: 0
+    transform: translateX(-50%)
+    opacity: 0.3
   .contactlayout
     display: flex
     justify-content: center
     align-items: center
+    position: relative
     @media screen and (max-width:767px)
       justify-content: flex-start
     @media screen and (max-width:575px)

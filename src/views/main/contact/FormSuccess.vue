@@ -12,13 +12,6 @@
   </section>
 </template>
 
-<script>
-import { useSeoMeta } from 'unhead'
-useSeoMeta({
-  title: '成功送出!!'
-})
-</script>
-
 <style lang="sass">
 section.formSuccess
     background-color: #f0dec9
@@ -28,8 +21,24 @@ section.formSuccess
     justify-content: center
     align-items: center
     overflow: hidden
+    position: relative
+    &::before
+      content: ''
+      display: block
+      width: 100%
+      height: 100%
+      background-repeat: no-repeat
+      background-size: cover
+      background-position: center
+      background-image: url('/public/assets/images/banner/pokemon.jpg')
+      position: absolute
+      left: 50%
+      top: 0
+      transform: translateX(-50%)
+      opacity: 0.3
     .mainBox
         text-align: center
+        position: relative
         h2,p
           font-family: 'Noto Sans TC',sans-serif
         h2
